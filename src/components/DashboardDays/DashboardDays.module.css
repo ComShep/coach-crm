@@ -1,0 +1,20 @@
+.header {
+	height: 75px;
+	border-top: 2px solid #f5f6f7;
+	display: grid;
+	grid-template-columns: 65px 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+	font-family: Roboto;
+	color: #6b7a99;
+	line-height: 167%;
+	font-weight: 700;
+}
+
+.header > :not(:last-child) {
+	border-right: 2px solid #f5f6f7;
+}
+
+.headerBlock {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}

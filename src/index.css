@@ -1,1 +1,15 @@
 @import './styles/reset.css';
+@import url(https://fonts.googleapis.com/css?family=Inter:100,200,300,regular,500,600,700,800,900,100italic,200italic,300italic,italic,500italic,600italic,700italic,800italic,900italic);
+@import url(https://fonts.googleapis.com/css?family=Roboto:100,200,300,regular,500,600,700,800,900,100italic,200italic,300italic,italic,500italic,600italic,700italic,800italic,900italic);
+
+body {
+	background-color: #f7f8fa;
+	font-family: Inter;
+	font-size: 12px;
+}
+
+.wrapper {
+	width: 1600px;
+	margin: 0 auto;
+	padding: 0 10px;
+}
