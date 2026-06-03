@@ -11,7 +11,12 @@
 }
 
 .timeLabel  {
-
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: #adb8cc;
+	font-family: Roboto;
+	line-height: 167%;
 }
 
 .cell {
