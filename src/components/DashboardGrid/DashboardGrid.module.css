@@ -3,13 +3,6 @@
 	grid-template-columns: 65px repeat(7, 1fr)
 }
 
-.gridRow {
-	border-top: 2px solid #f5f6f7;
-	height: 35px;
-	display: grid;
-	grid-template-columns: 65px 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-}
-
 .timeLabel  {
 	display: flex;
 	justify-content: center;
@@ -20,7 +13,7 @@
 }
 
 .cell {
-	height: 35px;
+	min-height: 35px;
 	border-top: 2px solid #f5f6f7;
 }
 

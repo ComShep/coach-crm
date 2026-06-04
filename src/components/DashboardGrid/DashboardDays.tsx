@@ -36,7 +36,7 @@ export const DashboardDays = () => {
 		<div className={styles.header}>
 			<div className={styles.headerBlock}><IconClock/></div>
 			{days.map(day => {
-				return <div className={styles.headerBlock}>{day.name} {day.date}</div>
+				return <div className={styles.headerBlock} key={day.date}>{day.name} {day.date}</div>
 			})}
 		</div>
 	)

@@ -1,5 +1,4 @@
-import { DashboardDays } from "../../components/DashboardDays/DashboardDays"
-import { DashboardGrid } from "../../components/DashboardGrid/DashboardGrid"
+import { DashboardDays, DashboardGrid } from "../../components/DashboardGrid"
 import { DashboardHeader } from "../../components/DashboardHeader/DashboardHeader"
 import styles from './DashboardPage.module.css'
 
