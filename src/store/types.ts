@@ -31,8 +31,16 @@ interface LessonsAction {
 	addLesson?: (lesson: Lesson) => void
 }
 
-interface Lesson {
-	name: string
+export interface Lesson {
+	id: string,
+	studentName: string,
+	subject: string,
+	dayOfWeek: number,
+	startTime: string,
+	endTime: string,
+	type: 'recurring' | 'single',
+	singleDate?: string,
+	cancelledInstances?: string[]
 }
 
 export type LessonsStore = LessonsState & LessonsAction;
