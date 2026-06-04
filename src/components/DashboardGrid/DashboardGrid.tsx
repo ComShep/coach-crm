@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import clsx from "clsx";
 import styles from "./DashboardGrid.module.css";
 import { generateTimeSlots } from "../../utils/schedule";
@@ -8,17 +8,16 @@ import { DashboardDays } from "./DashboardDays";
 const slots = generateTimeSlots(9, 20, 30);
 
 export const DashboardGrid = () => {
+	const currentWeekOffset = useWeekStore((state) => state.currentWeekOffset);
   const getWeekDays = useWeekStore((state) => state.getWeekDays);
-  const days = getWeekDays();
+  const days = useMemo(() => getWeekDays(), [currentWeekOffset, getWeekDays]);
 
   const timeCell = clsx({
     [styles.timeLabel]: true,
     [styles.cell]: true,
   });
 
-  // console.log(slots);
-
-  return (
+	return (
     <>
       <DashboardDays days={days}/>
       <div className={styles.grid}>

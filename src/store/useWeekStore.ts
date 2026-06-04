@@ -23,7 +23,6 @@ export const useWeekStore = create<WeekState>((set, get) => ({
 
 		const monday = new Date();
 		monday.setDate(today.getDate() + mondayOffset + currentWeekOffset * 7)
-
 		const weekDates: Date[] = [];
 		for (let i = 0; i < 7; i ++) {
 			const date = new Date(monday);
@@ -44,5 +43,14 @@ export const useWeekStore = create<WeekState>((set, get) => ({
 		}))
 
 		return weekDays
+	},
+
+	getWeekRangeDates: () => {
+		const weekDates = get().getWeekDates();
+
+		return {
+			startDate: formatDate(weekDates[0]),
+			endDate: formatDate(weekDates[6])
+		}
 	}
 }))

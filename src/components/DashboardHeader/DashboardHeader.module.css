@@ -1,3 +1,37 @@
 .header {
-
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 20px;
 }
+
+.weekNav {
+	display: flex;
+	align-items: center;
+	padding: 20px;
+	gap: 35px;
+	font-family: Roboto;
+	color: #6b7a99;
+	font-weight: 700;
+	line-height: 167%;
+}
+
+.navButton {
+	width: 40px;
+	height: 40px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border: 2px solid #f5f6f7;
+	color: #c3cad9;
+	border-radius: 50%;
+	box-shadow: 0 2px 5px 0 rgba(38, 51, 77, 0.03);
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+}
+
+.navButton:hover{
+	border: 2px solid #d8d9dc;
+	color: #a4aebe;
+}
+

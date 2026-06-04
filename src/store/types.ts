@@ -4,10 +4,16 @@ export interface WeekDay {
 	date: string
 }
 
+interface WeekRange {
+	startDate: string,
+	endDate: string
+}
+
 export interface WeekState {
-	currentWeekOffset: number;
+	currentWeekOffset: number,
 	nextWeek: () => void,
 	prevWeek: () => void,
 	getWeekDates: () => Date[],
-	getWeekDays: () => WeekDay[]
+	getWeekDays: () => WeekDay[],
+	getWeekRangeDates: () => WeekRange
 }
