@@ -51,7 +51,8 @@ export const useWeekStore = create<WeekStore>()(
         const weekDays: WeekDay[] = weekDates.map((date) => ({
           fullName: weekDayName(date, 'full'),
           shortName: weekDayName(date, 'short'),
-          date: formatDate(date)
+          displayDate: formatDate(date),
+					dateObject: date.toISOString().slice(0, 10)
         }));
 
         return weekDays;

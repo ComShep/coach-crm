@@ -11,7 +11,7 @@ export const DashboardDays = ({days}: Props) => {
 		<div className={styles.header}>
 			<div className={styles.headerBlock}><IconClock/></div>
 			{days.map(day => {
-				return <div className={styles.headerBlock} key={day.date}>{day.fullName} {day.date}</div>
+				return <div className={styles.headerBlock} key={day.displayDate}>{day.fullName} {day.displayDate}</div>
 			})}
 		</div>
 	)

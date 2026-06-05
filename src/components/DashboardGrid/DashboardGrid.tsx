@@ -4,8 +4,9 @@ import styles from "./DashboardGrid.module.css";
 import { generateTimeSlots } from "../../utils/schedule";
 import { useWeekStore } from "../../store";
 import { DashboardDays } from "./DashboardDays";
+import { DashboardCell } from "./DashboardCell";
 
-const slots = generateTimeSlots(9, 20, 30);
+const timeSlots = generateTimeSlots(9, 20, 30);
 
 export const DashboardGrid = () => {
 	const currentWeekOffset = useWeekStore((state) => state.currentWeekOffset);
@@ -16,25 +17,25 @@ export const DashboardGrid = () => {
     [styles.timeLabel]: true,
     [styles.cell]: true,
   });
-
+	console.log(days)
 	return (
     <>
       <DashboardDays days={days}/>
       <div className={styles.grid}>
-        {slots.map((slot) => {
+        {timeSlots.map((timeSlot) => {
           return (
-            <React.Fragment key={`row-${slot}`}>
-              <div className={timeCell} key={`time-${slot}`}>
-                {slot}
+            <React.Fragment key={`row-${timeSlot}`}>
+              <div className={timeCell} key={`time-${timeSlot}`}>
+                {timeSlot}
               </div>
-              {days.map((_, dayIndex) => {
+              {days.map((days, dayIndex) => {
                 return (
-                  <div
-                    key={`${dayIndex}-${slot}`}
-                    className={styles.cell}
-                    data-day={dayIndex}
-                    data-time={slot}
-                  ></div>
+									<DashboardCell 
+										key={`${dayIndex}-${timeSlot}`}
+										dayIndex={dayIndex}
+										timeSlot={timeSlot}
+										date={days.dateObject}
+									/>
                 );
               })}
             </React.Fragment>

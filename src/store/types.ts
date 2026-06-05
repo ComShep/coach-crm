@@ -1,7 +1,8 @@
 export interface WeekDay {
 	fullName: string,
 	shortName: string,
-	date: string
+	displayDate: string,
+	dateObject: string
 }
 
 interface WeekRange {
