@@ -47,21 +47,31 @@ export const demoLessons: Lesson[] = [
     id: "5",
     studentName: "Екатерина Волкова",
     subject: "Химия",
-    dayOfWeek: 4, // пятница
+    dayOfWeek: 6, // пятница
     startTime: "09:00",
     endTime: "10:30",
     type: "recurring",
-    cancelledInstances: ["2024-06-14"], // пример отменённого занятия
+    cancelledInstances: ["2026-06-14"], // пример отменённого занятия
   },
   {
     id: "7",
     studentName: "Ольга Новикова",
     subject: "Биология",
-    dayOfWeek: 6,
+    dayOfWeek: 1,
     startTime: "15:00",
     endTime: "16:30",
     type: "single",
-    singleDate: "2024-06-16",
+    singleDate: "2026-06-16",
+  },
+	{
+    id: "8",
+    studentName: "Ольга Новикова",
+    subject: "Биология",
+    dayOfWeek: 2,
+    startTime: "15:00",
+    endTime: "16:30",
+    type: "single",
+    singleDate: "2026-06-17",
   },
 ];
 
