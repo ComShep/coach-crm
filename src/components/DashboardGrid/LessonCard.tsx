@@ -16,6 +16,12 @@ export const LessonCard = ({lesson, isCancelled}: Props) => {
 		[styles.lesson]: true,
 		[styles.recurringColor]: lesson.type === 'recurring',
 		[styles.singleColor]: lesson.type === 'single',
+		[styles.cancelled]: isCancelled
+	})
+
+	const textStyles = clsx({
+		[styles.text]: true,
+		[styles.cancelledText]: isCancelled
 	})
 
 	return (
@@ -24,7 +30,8 @@ export const LessonCard = ({lesson, isCancelled}: Props) => {
 				<TimeLabel time={lesson.startTime} type={lesson.type}/>
 				<TimeLabel time={lesson.endTime} type={lesson.type}/>
 			</div>
-			<p className={styles.student}>{lesson.studentName}</p>
+			<p className={textStyles}><strong>Ученик:</strong> {lesson.studentName}</p>
+			<p className={textStyles}><strong>Предмет:</strong> {lesson.subject}</p>
 		</div>
 	)
 }
