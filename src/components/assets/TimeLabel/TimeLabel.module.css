@@ -14,3 +14,11 @@
 	text-align: center;
 	color: #fff;
 }
+
+.recurringColor {
+	background: #5b5ef4;
+}
+
+.singleColor {
+	background: #22c97e;
+}

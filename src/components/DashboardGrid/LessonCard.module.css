@@ -1,10 +1,9 @@
 .lesson {
 	position: absolute;
-	top: 2.5%;
-	left: 2.5%;
-	border: 2px solid #29cc39;
-	background: rgba(41, 204, 57, 0.05);
-	width: 95%;
+	top: 0;
+	left: 0;
+
+	width: 100%;
 	z-index: 5;
 	height: 35px;
 	padding: 10px;
@@ -14,4 +13,22 @@
 .lessonLabels{
 	display: flex;
 	gap: 5px
+}
+
+.student{
+	font-family: Roboto;
+	font-weight: 700;
+	font-size: 10px;
+	line-height: 200%;
+	color: #4d5e80;
+}
+
+.recurringColor {
+	border: 2px solid #5b5ef4;
+	background: #eeeeff;
+}
+
+.singleColor {
+	border: 2px solid #22c97e;
+	background: #e6faf2;
 }

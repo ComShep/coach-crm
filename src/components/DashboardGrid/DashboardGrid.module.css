@@ -7,9 +7,10 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	color: #adb8cc;
+	color: #6b7a99;
 	font-family: Roboto;
 	line-height: 167%;
+	font-weight: 700;
 }
 
 .cell {
