@@ -28,7 +28,7 @@ export const demoLessons: Lesson[] = [
     studentName: "София Морозова",
     subject: "Физика",
     dayOfWeek: 2, // среда
-    startTime: "11:00",
+    startTime: "11:30",
     endTime: "12:30",
     type: "recurring",
     cancelledInstances: [],

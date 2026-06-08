@@ -1,4 +1,8 @@
-export const generateTimeSlots = (startHour: number = 8, endHour: number = 22, stepMinutes: number = 30): string[] => {
+const START_HOUR = 8;
+const END_HOUR = 22;
+const STEP_MINUTES = 30;
+
+export const generateTimeSlots = (startHour: number = START_HOUR, endHour: number = END_HOUR, stepMinutes: number = STEP_MINUTES): string[] => {
 	const slots: string[] = [];
 	for (let hour = startHour; hour <= endHour; hour ++) {
 		for (let minute = 0; minute < 60; minute += stepMinutes) {
@@ -7,5 +11,19 @@ export const generateTimeSlots = (startHour: number = 8, endHour: number = 22, s
 			slots.push(time)
 		}
 	}
+
 	return slots;
+}
+
+export const getSlotNumber = (time: string, startHour: number = START_HOUR): number => {
+	const [hour, minutes] = time.split(':').map(Number);
+
+	return (hour - startHour) * 2 + (minutes === 30 ? 1 : 0)
+}
+
+export const getDurationSlots = (startTime: string, endTime: string): number => {
+	const startSlot = getSlotNumber(startTime);
+	const endSlot = getSlotNumber(endTime);
+
+	return endSlot - startSlot
 }

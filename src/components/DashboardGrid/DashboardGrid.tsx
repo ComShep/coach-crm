@@ -6,7 +6,7 @@ import { useWeekStore } from "../../store";
 import { DashboardDays } from "./DashboardDays";
 import { DashboardCell } from "./DashboardCell";
 
-const timeSlots = generateTimeSlots(9, 20, 30);
+const timeSlots = generateTimeSlots();
 
 export const DashboardGrid = () => {
 	const currentWeekOffset = useWeekStore((state) => state.currentWeekOffset);
