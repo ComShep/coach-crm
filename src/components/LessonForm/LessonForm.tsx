@@ -12,8 +12,10 @@ export const LessonForm = () => {
 	}
 
 	return (
-		<div className={styles.modal}>LessonForm
-			<div onClick={() => handleClickClose()}>close</div>
+		<div className={styles.modal}>
+			<div className={styles.modalContainer}>
+				<div onClick={() => handleClickClose()}>close</div>
+			</div>
 		</div>
 	)
 }
