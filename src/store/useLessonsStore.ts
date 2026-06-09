@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { devtools } from "zustand/middleware";
-import type { Lesson, LessonsStore } from "./types";
+import type { Lesson, LessonsStore, TypeOfOpeningModal } from "./types";
 
 export const demoLessons: Lesson[] = [
   {
@@ -80,9 +80,16 @@ export const useLessonsStore = create<LessonsStore>()(
     lessons: demoLessons,
 		modalShow: false,
 		modalMode: 'close',
+		currentCellDayOfWeek: 0,
+		currentCellDate: '',
+		currentCellTime: '',
+		typeOfOpeningModal: 'buttonClick',
 
 		toggleModalShow: () => set((state) => ({modalShow: !state.modalShow})),
-		setModalMode: (mode) => set({modalMode: mode}) 
+		openModal: (typeOfOpening: TypeOfOpeningModal) => set({typeOfOpeningModal: typeOfOpening, modalShow: true}),
+		closeModal: () => set({modalShow: false}),
+		setModalMode: (mode) => set({modalMode: mode}), 
+		setCurrentCellTimeData: (dayOfWeek: number, date: string, time: string) =>  set({currentCellDayOfWeek: dayOfWeek, currentCellDate: date, currentCellTime: time})
   }), 
   { name: "LessonStore" }
 ));

@@ -25,14 +25,22 @@ interface WeekAction {
 interface LessonsState {
 	lessons: Lesson[] | null,
 	modalShow: boolean,
-	modalMode: ModalModeTypes
+	modalMode: ModalModeTypes,
+	currentCellDayOfWeek: number,
+	currentCellDate: string,
+	currentCellTime: string,
+	typeOfOpeningModal: TypeOfOpeningModal,
 }
 
-type ModalModeTypes = 'create' | 'edit' | 'close'
+type ModalModeTypes = 'create' | 'edit' | 'close';
+export type TypeOfOpeningModal = 'buttonClick' | 'cellClick'
 
 interface LessonsAction {
 	toggleModalShow: () => void,
-	setModalMode: (mode: ModalModeTypes) => void
+	openModal: (typeOfOpening: TypeOfOpeningModal) => void,
+	closeModal: () => void,
+	setModalMode: (mode: ModalModeTypes) => void,
+	setCurrentCellTimeData: (dayOfWeek: number, date: string, time: string) => void
 	// addLesson?: (lesson: Lesson) => void
 }
 
