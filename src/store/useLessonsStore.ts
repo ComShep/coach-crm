@@ -78,6 +78,11 @@ export const demoLessons: Lesson[] = [
 export const useLessonsStore = create<LessonsStore>()(
   devtools((set) => ({
     lessons: demoLessons,
+		modalShow: false,
+		modalMode: 'close',
+
+		toggleModalShow: () => set((state) => ({modalShow: !state.modalShow})),
+		setModalMode: (mode) => set({modalMode: mode}) 
   }), 
   { name: "LessonStore" }
 ));

@@ -22,14 +22,18 @@ interface WeekAction {
 	getWeekRangeDates: () => WeekRange
 }
 
-export type WeekStore = WeekState & WeekAction
-
 interface LessonsState {
-	lessons: Lesson[] | null
+	lessons: Lesson[] | null,
+	modalShow: boolean,
+	modalMode: ModalModeTypes
 }
 
+type ModalModeTypes = 'create' | 'edit' | 'close'
+
 interface LessonsAction {
-	addLesson?: (lesson: Lesson) => void
+	toggleModalShow: () => void,
+	setModalMode: (mode: ModalModeTypes) => void
+	// addLesson?: (lesson: Lesson) => void
 }
 
 export interface Lesson {
@@ -44,4 +48,5 @@ export interface Lesson {
 	cancelledInstances?: string[]
 }
 
+export type WeekStore = WeekState & WeekAction
 export type LessonsStore = LessonsState & LessonsAction;

@@ -11,6 +11,9 @@ type Props = {
 
 export const DashboardCell = ({ dayIndex, timeSlot, date }: Props) => {
   const lessons = useLessonsStore((state) => state.lessons);
+	const modalMode = useLessonsStore((state) => state.modalMode);
+	const toggleModalShow = useLessonsStore((state) => state.toggleModalShow);
+	const setModalMode = useLessonsStore((state) => state.setModalMode);
 
   if (!lessons)
     return (
@@ -19,18 +22,30 @@ export const DashboardCell = ({ dayIndex, timeSlot, date }: Props) => {
         data-day={dayIndex}
         data-time={timeSlot}
       ></div>
-    );
+  );
+
+	const handleClickCell = () => {
+		toggleModalShow();
+		setModalMode('create')
+		console.log(modalMode)
+	}
 
   const cellData = findLessonForCell(lessons, dayIndex, timeSlot, date);
 
   return (
-    <div className={styles.cell} data-day={dayIndex} data-time={timeSlot}>
-      { cellData &&
-        (<LessonCard
+    <div
+      className={styles.cell}
+      data-day={dayIndex}
+      data-time={timeSlot}
+      data-date={date}
+			onClick={() => handleClickCell()}
+    >
+      {cellData && (
+        <LessonCard
           lesson={cellData.lesson}
           isCancelled={cellData.isCancelled}
-        />)
-      }
+        />
+      )}
     </div>
   );
 };
