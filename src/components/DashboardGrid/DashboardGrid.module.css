@@ -14,7 +14,7 @@
 }
 
 .cell {
-	min-height: 35px;
+	min-height: 30px;
 	border-top: 2px solid #f5f6f7;
 	position: relative;
 }
