@@ -1,0 +1,23 @@
+.btn {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	font-size: 12px;
+	padding: 10px;
+	font-weight: 400;
+	border-radius: 8px;
+}
+
+.red {
+	color: #e53e3e;
+}
+
+.red:hover{
+	background: #fff5f5;
+}
+
+.gray:hover{
+	background: #f4f4f9;
+}
+

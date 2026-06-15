@@ -80,7 +80,14 @@ export const DashboardCell = ({ dayIndex, timeSlot, date }: Props) => {
 					onOpenMenu={handleOpenMenu}
         />
       )}
-			{contextMenu.visible && contextMenu.lesson && <ContextMenu menuX={contextMenu.x} menuY={contextMenu.y} lesson={contextMenu.lesson} onClose={handleCloseMenu}/>}
+			{contextMenu.visible && contextMenu.lesson && 
+				<ContextMenu 
+				menuX={contextMenu.x} 
+				menuY={contextMenu.y} 
+				lesson={contextMenu.lesson} 
+				onClose={handleCloseMenu}
+				date={date}
+			/>}
     </div>
   );
 };

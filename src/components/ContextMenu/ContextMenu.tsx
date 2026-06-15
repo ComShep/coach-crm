@@ -1,15 +1,20 @@
 import { useEffect, useRef } from "react";
 import styles from "./ContextMenu.module.css";
 import type { Lesson } from "../../store/types";
+import { RiDeleteBinLine } from "react-icons/ri";
+import { TbCancel } from "react-icons/tb";
+import { GrEdit } from "react-icons/gr";
+import { CtxMenuButton } from "../assets/CtxMenuButton/CtxMenuButton";
 
 type Props = {
   menuX: number;
   menuY: number;
 	lesson: Lesson
   onClose: () => void;
+	date: string
 };
 
-export const ContextMenu = ({ menuX, menuY, lesson, onClose }: Props) => {
+export const ContextMenu = ({ menuX, menuY, lesson, onClose, date }: Props) => {
   const menuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -38,7 +43,14 @@ export const ContextMenu = ({ menuX, menuY, lesson, onClose }: Props) => {
       ref={menuRef}
 			onClick={handleClick}
     >
-      test
+      <div className={styles.header}>
+				{lesson.studentName} · {lesson.startTime}
+			</div>
+			<div className={styles.separator}></div>
+			<CtxMenuButton title="Редактировать" Icon={GrEdit} onClick={() => console.log(123)}/>
+			{lesson.type === 'recurring' && <CtxMenuButton title="Отменить урок" Icon={TbCancel} onClick={() => console.log(date)}/>}
+			<div className={styles.separator}></div>
+			<CtxMenuButton title="Удалить" Icon={RiDeleteBinLine} onClick={() => console.log(123)} color="red"/>
     </div>
   );
 };
