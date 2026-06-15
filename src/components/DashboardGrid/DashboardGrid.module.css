@@ -19,6 +19,12 @@
 	position: relative;
 }
 
+.cell:hover{
+	cursor: pointer;
+	background: #eeeeff;
+	transition: .5s;
+}
+
 .cell:not(:last-child){
 	border-right: 2px solid #f5f6f7;
 }

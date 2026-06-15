@@ -1,7 +1,8 @@
 import { useMemo } from "react";
-import { useWeekStore } from "../../store";
+import { useLessonsStore, useWeekStore } from "../../store";
 import { IconLeftArrow, IconRightArrow } from "../assets/icons";
 import styles from "./DashboardHeader.module.css";
+import { Button } from "../assets/Button/Button";
 
 export const DashboardHeader = () => {
   const { nextWeek, prevWeek, currentWeekOffset, getWeekRangeDates } =
@@ -10,6 +11,14 @@ export const DashboardHeader = () => {
     () => getWeekRangeDates(),
     [currentWeekOffset, getWeekRangeDates],
   );
+
+	const openModal = useLessonsStore((state) => state.openModal);
+	const setModalMode = useLessonsStore((state) => state.setModalMode);
+
+	const handleClickBtn = () => {
+		openModal('buttonClick');
+		setModalMode('create');
+	}
 
   return (
     <div className={styles.header}>
@@ -24,6 +33,7 @@ export const DashboardHeader = () => {
           <IconRightArrow />
         </div>
       </div>
+			<Button title="Добавить новое занятие" handleClick={handleClickBtn}/>
     </div>
   );
 };

@@ -17,7 +17,7 @@ export const DashboardGrid = () => {
     [styles.timeLabel]: true,
     [styles.cell]: true,
   });
-	console.log(days)
+
 	return (
     <>
       <DashboardDays days={days}/>
