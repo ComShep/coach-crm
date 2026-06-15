@@ -6,10 +6,11 @@ import styles from './LessonCard.module.css'
 
 type Props = {
 	lesson: Lesson,
-	isCancelled: boolean
+	isCancelled: boolean,
+	onOpenMenu: (event: React.MouseEvent, lesson: Lesson) => void
 }
 
-export const LessonCard = ({lesson, isCancelled}: Props) => {
+export const LessonCard = ({lesson, isCancelled, onOpenMenu}: Props) => {
 	const durationSlot = getDurationSlots(lesson.startTime, lesson.endTime);
 
 	const lessonStyle = clsx({
@@ -24,8 +25,13 @@ export const LessonCard = ({lesson, isCancelled}: Props) => {
 		[styles.cancelledText]: isCancelled
 	})
 
+	const handleClick = (event: React.MouseEvent) => {
+		event.stopPropagation();
+		onOpenMenu(event, lesson)
+	}
+
 	return (
-		<div className={lessonStyle} style={{ height: `calc(35px * ${durationSlot})`}}>
+		<div className={lessonStyle} style={{ height: `calc(35px * ${durationSlot})`}} onClick={(event) => handleClick(event)}>
 			<div className={styles.lessonLabels}>
 				<TimeLabel time={lesson.startTime} type={lesson.type}/>
 				<TimeLabel time={lesson.endTime} type={lesson.type}/>

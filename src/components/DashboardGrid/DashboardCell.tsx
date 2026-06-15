@@ -1,7 +1,10 @@
+import { useState } from "react";
 import { useLessonsStore } from "../../store";
 import { findLessonForCell } from "../../utils/lessonUtils";
 import styles from "./DashboardGrid.module.css";
 import { LessonCard } from "./LessonCard";
+import type { Lesson } from "../../store/types";
+import { ContextMenu } from "../ContextMenu/ContextMenu";
 
 type Props = {
   dayIndex: number;
@@ -14,6 +17,18 @@ export const DashboardCell = ({ dayIndex, timeSlot, date }: Props) => {
 	const openModal = useLessonsStore((state) => state.openModal);
 	const setModalMode = useLessonsStore((state) => state.setModalMode);
 	const setCurrentCellTimeData = useLessonsStore((state) => state.setCurrentCellTimeData)
+
+	const [contextMenu, setContextMenu] = useState<{
+		visible: boolean,
+		x: number,
+		y: number,
+		lesson: Lesson | null
+	}>({
+		visible: false,
+		x: 0,
+		y: 0,
+		lesson: null
+	})
 
   if (!lessons)
     return (
@@ -30,6 +45,24 @@ export const DashboardCell = ({ dayIndex, timeSlot, date }: Props) => {
 		setCurrentCellTimeData(dayOfWeek, date, time)
 	}
 
+	const handleOpenMenu = (event: React.MouseEvent, lesson: Lesson) => {
+		setContextMenu({
+			visible: true,
+			x: event.clientX,
+			y: event.clientY,
+			lesson: lesson
+		})
+	}
+
+	const handleCloseMenu = () => {
+		setContextMenu({
+			visible: false,
+			x: 0,
+			y: 0,
+			lesson: null
+		})
+	}
+
   const cellData = findLessonForCell(lessons, dayIndex, timeSlot, date);
 
   return (
@@ -44,8 +77,10 @@ export const DashboardCell = ({ dayIndex, timeSlot, date }: Props) => {
         <LessonCard
           lesson={cellData.lesson}
           isCancelled={cellData.isCancelled}
+					onOpenMenu={handleOpenMenu}
         />
       )}
+			{contextMenu.visible && contextMenu.lesson && <ContextMenu menuX={contextMenu.x} menuY={contextMenu.y} lesson={contextMenu.lesson} onClose={handleCloseMenu}/>}
     </div>
   );
 };

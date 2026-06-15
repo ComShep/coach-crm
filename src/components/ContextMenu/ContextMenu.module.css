@@ -1,0 +1,9 @@
+.ctxMenu {
+	position: fixed;
+	z-index: 50;
+	background: #ffffff;
+	border-radius: 12px;
+	padding: 6px;
+	box-shadow: 0 8px 40px rgba(91, 94, 244, 0.14);
+	min-width: 210px;
+}
