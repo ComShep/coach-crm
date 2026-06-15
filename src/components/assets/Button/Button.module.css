@@ -1,16 +1,29 @@
 .btn {
-	border: 2px solid #f5f6f7;
+	border: 1px solid #f5f6f7;
 	font-family: Roboto;
-	color: #fff;
 	padding: 10px 25px;
-	font-weight: 700;
+	font-weight: 400;
 	border-radius: 15px;
-	background: #5b5ef4;
 	transition: opacity .3s;
 	box-shadow: 0 2px 5px 0 rgba(38, 51, 77, 0.03);
+	font-size: 14px;
 }
 
-.btn:hover{
+.whiteBtn {
+	color: #4d5e80;
+}
+
+.colorBtn {
+	background: #5b5ef4;
+	color: #fff;
+}
+
+.whiteBtn:hover{
+	border-color: #4a4a6a;
+}
+
+.colorBtn:hover{
 	cursor: pointer;
 	opacity: 0.8;
 }
+

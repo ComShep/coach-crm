@@ -3,13 +3,16 @@ import styles from './Button.module.css'
 
 type Props = {
 	title: string,
-	handleClick: () => void
+	handleClick: () => void,
+	color?: boolean
 }
 
-export const Button = ({title, handleClick}: Props) => {
+export const Button = ({title, handleClick, color = true}: Props) => {
 
 	const btnStyle = clsx({
-		[styles.btn]: true
+		[styles.btn]: true,
+		[styles.colorBtn]: color === true,
+		[styles.whiteBtn]: color === false
 	})
 
 	return (
