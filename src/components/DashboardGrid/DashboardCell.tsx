@@ -48,8 +48,8 @@ export const DashboardCell = ({ dayIndex, timeSlot, date }: Props) => {
 	const handleOpenMenu = (event: React.MouseEvent, lesson: Lesson) => {
 		setContextMenu({
 			visible: true,
-			x: event.clientX,
-			y: event.clientY,
+			x: event.pageX,
+			y: event.pageY,
 			lesson: lesson
 		})
 	}

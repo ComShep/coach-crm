@@ -84,12 +84,14 @@ export const useLessonsStore = create<LessonsStore>()(
 		currentCellDate: '',
 		currentCellTime: '',
 		typeOfOpeningModal: 'buttonClick',
+		currentEditLesson: null,
 
 		toggleModalShow: () => set((state) => ({modalShow: !state.modalShow})),
 		openModal: (typeOfOpening: TypeOfOpeningModal) => set({typeOfOpeningModal: typeOfOpening, modalShow: true}),
 		closeModal: () => set({modalShow: false}),
 		setModalMode: (mode) => set({modalMode: mode}), 
-		setCurrentCellTimeData: (dayOfWeek: number, date: string, time: string) =>  set({currentCellDayOfWeek: dayOfWeek, currentCellDate: date, currentCellTime: time})
+		setCurrentCellTimeData: (dayOfWeek: number, date: string, time: string) =>  set({currentCellDayOfWeek: dayOfWeek, currentCellDate: date, currentCellTime: time}),
+		setCurrentEditLesson: (lesson: Lesson) => set({currentEditLesson: lesson})
   }), 
   { name: "LessonStore" }
 ));

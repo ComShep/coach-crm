@@ -27,9 +27,8 @@ export const LessonForm = () => {
   );
   const currentCellDate = useLessonsStore((state) => state.currentCellDate);
   const currentCellTime = useLessonsStore((state) => state.currentCellTime);
-  const typeOfOpeningModal = useLessonsStore(
-    (state) => state.typeOfOpeningModal,
-  );
+  const typeOfOpeningModal = useLessonsStore((state) => state.typeOfOpeningModal);
+	const currentEditLesson = useLessonsStore((state) => state.currentEditLesson)
 
   const [lessonFormValue, setLessonFormValue] =
     useState<Lesson>(initModalState);
@@ -46,7 +45,9 @@ export const LessonForm = () => {
       }));
     } else if (typeOfOpeningModal === "buttonClick") {
       setLessonFormValue(initModalState);
-    }
+    } else if (typeOfOpeningModal === 'lessonClick' && currentEditLesson !== null) {
+			setLessonFormValue(currentEditLesson)
+		}
   }, [typeOfOpeningModal]);
 
   const handleClickClose = () => {
@@ -69,7 +70,7 @@ export const LessonForm = () => {
     <div className={styles.modal}>
       <div className={styles.modalContainer}>
         <div className={styles.modalHeader}>
-          <h2>Добавить занятие</h2>
+					{typeOfOpeningModal === 'lessonClick' ? <h2>Редактировать занятие</h2> : <h2>Добавить занятие</h2>}
           <select
             className={styles.select}
             value={lessonFormValue.type}
