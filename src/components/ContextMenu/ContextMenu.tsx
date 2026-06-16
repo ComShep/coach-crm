@@ -37,39 +37,58 @@ export const ContextMenu = ({ menuX, menuY, lesson, onClose, date }: Props) => {
     };
   }, [onClose]);
 
-	useEffect(() => {
-		if(menuRef.current) {
-			const rect = menuRef.current.getBoundingClientRect();
-			const windowWidth = window.innerWidth;
-			const windowHeight = window.innerHeight;
-
-			const scrollX = window.scrollX;
-			const scrollY = window.scrollY;
-
-			const menuClientX = menuX - scrollX;
-      const menuClientY = menuY - scrollY;
+ useEffect(() => {
+    if (menuRef.current) {
+      const rect = menuRef.current.getBoundingClientRect();
+      const windowWidth = window.innerWidth;
+      const windowHeight = window.innerHeight;
 
       let newX = menuX;
       let newY = menuY;
 
-			if (menuClientX + rect.width > windowWidth) {
-        newX = scrollX + windowWidth - rect.width - 10;
+      // Правый край
+      if (newX + rect.width > windowWidth) {
+        newX = windowWidth - rect.width - 10;
       }
 
-      // Если меню выходит за нижний край окна
-      if (menuClientY + rect.height > windowHeight) {
-        newY = scrollY + windowHeight - rect.height - 10;
+      // Нижний край
+      if (newY + rect.height > windowHeight) {
+        newY = windowHeight - rect.height - 10;
       }
 
-      // Если меню выходит за левый край
-      if (newX < scrollX + 10) newX = scrollX + 10;
+      // Левый край
+      if (newX < 10) newX = 10;
 
-      // Если меню выходит за верхний край
-      if (newY < scrollY + 10) newY = scrollY + 10;
+      // Верхний край
+      if (newY < 10) newY = 10;
 
-			setPosition({ x: newX, y: newY });
-		}
-	}, [menuX, menuY])
+      setPosition({ x: newX, y: newY });
+    }
+  }, [menuX, menuY]);
+
+	useEffect(() => {
+    if (menuRef.current) {
+      const rect = menuRef.current.getBoundingClientRect();
+      const windowWidth = window.innerWidth;
+      const windowHeight = window.innerHeight;
+
+      let newX = menuX;
+      let newY = menuY;
+
+      if (newX + rect.width > windowWidth) {
+        newX = windowWidth - rect.width - 10;
+      }
+
+      if (newY + rect.height > windowHeight) {
+        newY = windowHeight - rect.height - 10;
+      }
+
+      if (newX < 10) newX = 10;
+      if (newY < 10) newY = 10;
+
+      setPosition({ x: newX, y: newY });
+    }
+  }, [menuX, menuY]);
 
 	const handleEditClick = () => {
 		openModal('lessonClick');
