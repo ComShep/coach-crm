@@ -18,7 +18,7 @@
 	font-family: Roboto;
 	font-weight: 500;
 	font-size: 10px;
-	line-height: 200%;
+	line-height: 120%;
 	color: #4d5e80;
 }
 
@@ -34,7 +34,6 @@
 
 .cancelled {
 	opacity: 0.6;
-	
 }
 
 .cancelledText {

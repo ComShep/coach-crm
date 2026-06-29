@@ -22,12 +22,14 @@ export const DashboardCell = ({ dayIndex, timeSlot, date }: Props) => {
 		visible: boolean,
 		x: number,
 		y: number,
-		lesson: Lesson | null
+		lesson: Lesson | null,
+		anchorElement: HTMLElement | null;
 	}>({
 		visible: false,
 		x: 0,
 		y: 0,
-		lesson: null
+		lesson: null,
+		anchorElement: null
 	})
 
   if (!lessons)
@@ -46,11 +48,14 @@ export const DashboardCell = ({ dayIndex, timeSlot, date }: Props) => {
 	}
 
 	const handleOpenMenu = (event: React.MouseEvent, lesson: Lesson) => {
+		event.stopPropagation();
+		const anchor = event.currentTarget as HTMLElement;
 		setContextMenu({
 			visible: true,
 			x: event.clientX,
 			y: event.clientY,
-			lesson: lesson
+			lesson: lesson,
+			anchorElement: anchor
 		})
 	}
 
@@ -59,7 +64,8 @@ export const DashboardCell = ({ dayIndex, timeSlot, date }: Props) => {
 			visible: false,
 			x: 0,
 			y: 0,
-			lesson: null
+			lesson: null,
+			anchorElement: null,
 		})
 	}
 
@@ -87,6 +93,7 @@ export const DashboardCell = ({ dayIndex, timeSlot, date }: Props) => {
 				lesson={contextMenu.lesson} 
 				onClose={handleCloseMenu}
 				date={date}
+				anchorElement={contextMenu.anchorElement}
 			/>}
     </div>
   );

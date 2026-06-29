@@ -31,7 +31,7 @@ export const LessonCard = ({lesson, isCancelled, onOpenMenu}: Props) => {
 	}
 
 	return (
-		<div className={lessonStyle} style={{ height: `calc(35px * ${durationSlot})`}} onClick={(event) => handleClick(event)}>
+		<div className={lessonStyle} style={{ height: `calc(30px * ${durationSlot})`}} onClick={(event) => handleClick(event)}>
 			<div className={styles.lessonLabels}>
 				<TimeLabel time={lesson.startTime} type={lesson.type}/>
 				<TimeLabel time={lesson.endTime} type={lesson.type}/>
