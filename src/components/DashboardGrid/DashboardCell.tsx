@@ -1,4 +1,3 @@
-// import { useState } from "react";
 import { useLessonsStore } from "../../store";
 import { findLessonForCell } from "../../utils/lessonUtils";
 import styles from "./DashboardGrid.module.css";
@@ -27,9 +26,6 @@ export const DashboardCell = ({ dayIndex, timeSlot, date }: Props) => {
 		closeMenu,
 		contextMenu 
 	} = useContextMenu();
-  
-	// const openModal = useLessonsStore((state) => state.openModal);
-	// const setModalMode = useLessonsStore((state) => state.setModalMode);
 
   if (!lessons)
     return (

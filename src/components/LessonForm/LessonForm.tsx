@@ -1,54 +1,18 @@
-import { useEffect, useState } from "react";
-import { useLessonsStore } from "../../store";
 import styles from "./LessonForm.module.css";
 import type { Lesson } from "../../store/types";
 import { IconDate, IconSubject, IconTime, IconUser } from "../assets/icons";
-import { generateTimeSlots, getNexTime } from "../../utils/schedule";
 import { Button } from "../assets/Button/Button";
-
-const initModalState: Lesson = {
-  id: "",
-  studentName: "",
-  subject: "",
-  dayOfWeek: 0,
-  startTime: "",
-  endTime: "",
-  type: "recurring",
-  singleDate: "",
-};
-
-const timeSlots = generateTimeSlots();
+import { useLessonForm } from "../../hooks/LessonForm/useLessonForm";
 
 export const LessonForm = () => {
-  const closeModal = useLessonsStore((state) => state.closeModal);
-  const setModalMode = useLessonsStore((state) => state.setModalMode);
-  const currentCellDayOfWeek = useLessonsStore(
-    (state) => state.currentCellDayOfWeek,
-  );
-  const currentCellDate = useLessonsStore((state) => state.currentCellDate);
-  const currentCellTime = useLessonsStore((state) => state.currentCellTime);
-  const typeOfOpeningModal = useLessonsStore((state) => state.typeOfOpeningModal);
-	const currentEditLesson = useLessonsStore((state) => state.currentEditLesson)
-
-  const [lessonFormValue, setLessonFormValue] =
-    useState<Lesson>(initModalState);
-
-  useEffect(() => {
-    if (typeOfOpeningModal === "cellClick") {
-      setLessonFormValue((prevState) => ({
-        ...prevState,
-        dayOfWeek: currentCellDayOfWeek,
-        startTime: currentCellTime,
-        endTime: getNexTime(currentCellTime, timeSlots),
-        singleDate: currentCellDate,
-        type: currentCellDate ? "single" : "recurring",
-      }));
-    } else if (typeOfOpeningModal === "buttonClick") {
-      setLessonFormValue(initModalState);
-    } else if (typeOfOpeningModal === 'lessonClick' && currentEditLesson !== null) {
-			setLessonFormValue(currentEditLesson)
-		}
-  }, [typeOfOpeningModal]);
+	const { 
+		closeModal,
+		setModalMode,
+		typeOfOpeningModal,
+		lessonFormValue,
+		setLessonFormValue,
+		timeSlots
+	} = useLessonForm();
 
   const handleClickClose = () => {
     closeModal();
@@ -139,48 +103,46 @@ export const LessonForm = () => {
             </div>
           </div>
         )}
-        <div>
-          <div className={styles.timeBlock}>
-            <div className={styles.formItem}>
-              <h3>Начало</h3>
-              <div className={styles.inputBlock}>
-                <IconTime />
-                <select
-                  className={styles.select}
-                  value={lessonFormValue.startTime}
-                  onChange={(event) => handleChange(event, "startTime")}
-                >
-                  {timeSlots.slice(0, -1).map((timeSlot) => {
-                    return (
-                      <option key={`start-${timeSlot}`} value={timeSlot}>
-                        {timeSlot}
-                      </option>
-                    );
-                  })}
-                </select>
-              </div>
-            </div>
-            <div className={styles.formItem}>
-							<h3>Конец</h3>
-              <div className={styles.inputBlock}>
-                <IconTime />
-                <select
-                  className={styles.select}
-                  value={lessonFormValue.endTime}
-                  onChange={(event) => handleChange(event, "endTime")}
-                >
-                  {timeSlots.slice(1).map((timeSlot) => {
-                    return (
-                      <option key={`end-${timeSlot}`} value={timeSlot}>
-                        {timeSlot}
-                      </option>
-                    );
-                  })}
-                </select>
-              </div>
-            </div>
-          </div>
-        </div>
+				<div className={styles.timeBlock}>
+					<div className={styles.formItem}>
+						<h3>Начало</h3>
+						<div className={styles.inputBlock}>
+							<IconTime />
+							<select
+								className={styles.select}
+								value={lessonFormValue.startTime}
+								onChange={(event) => handleChange(event, "startTime")}
+							>
+								{timeSlots.slice(0, -1).map((timeSlot) => {
+									return (
+										<option key={`start-${timeSlot}`} value={timeSlot}>
+											{timeSlot}
+										</option>
+									);
+								})}
+							</select>
+						</div>
+					</div>
+					<div className={styles.formItem}>
+						<h3>Конец</h3>
+						<div className={styles.inputBlock}>
+							<IconTime />
+							<select
+								className={styles.select}
+								value={lessonFormValue.endTime}
+								onChange={(event) => handleChange(event, "endTime")}
+							>
+								{timeSlots.slice(1).map((timeSlot) => {
+									return (
+										<option key={`end-${timeSlot}`} value={timeSlot}>
+											{timeSlot}
+										</option>
+									);
+								})}
+							</select>
+						</div>
+					</div>
+				</div>
 				<div className={styles.actions}>
 					<Button title="Закрыть" handleClick={handleClickClose} color={false}/>
 					<Button title="Сохранить" handleClick={handleClickClose}/>

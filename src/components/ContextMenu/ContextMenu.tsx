@@ -4,7 +4,6 @@ import { RiDeleteBinLine } from "react-icons/ri";
 import { TbCancel } from "react-icons/tb";
 import { GrEdit } from "react-icons/gr";
 import { CtxMenuButton } from "../assets/CtxMenuButton/CtxMenuButton";
-// import { useContextMenu } from "../../hooks/ContextMenu/useContextMenu";
 
 type Props = {
   lesson: Lesson;
@@ -18,8 +17,6 @@ type Props = {
 };
 
 export const ContextMenu = ({ lesson, onClose, date, menuRef, position, openModal, setModalMode, setCurrentEditLesson }: Props) => {
-
-
   const handleEditClick = () => {
     openModal("lessonClick");
     setModalMode("edit");
