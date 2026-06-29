@@ -1,22 +1,24 @@
 import styles from "./ContextMenu.module.css";
-import type { Lesson } from "../../store/types";
+import type { Lesson, TypeOfOpeningModal } from "../../store/types";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { TbCancel } from "react-icons/tb";
 import { GrEdit } from "react-icons/gr";
 import { CtxMenuButton } from "../assets/CtxMenuButton/CtxMenuButton";
-import { useContextMenu } from "../../hooks/ContextMenu/useContextMenu";
+// import { useContextMenu } from "../../hooks/ContextMenu/useContextMenu";
 
 type Props = {
-  menuX: number;       
-  menuY: number;        
   lesson: Lesson;
   onClose: () => void;
   date: string;
-  anchorElement: HTMLElement | null;
+	menuRef: React.RefObject<HTMLDivElement | null>;
+	position: { x: number, y: number };
+	openModal: (type: TypeOfOpeningModal) => void;
+	setModalMode: (mode: 'create' | 'edit' | 'close') => void;
+	setCurrentEditLesson: (lesson: Lesson) => void;
 };
 
-export const ContextMenu = ({ menuX, menuY, lesson, onClose, date, anchorElement }: Props) => {
-  const {menuRef, openModal, setModalMode, setCurrentEditLesson, position} = useContextMenu({menuX, menuY, anchorElement, onClose})
+export const ContextMenu = ({ lesson, onClose, date, menuRef, position, openModal, setModalMode, setCurrentEditLesson }: Props) => {
+
 
   const handleEditClick = () => {
     openModal("lessonClick");

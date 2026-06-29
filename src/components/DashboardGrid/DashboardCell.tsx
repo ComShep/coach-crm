@@ -1,10 +1,11 @@
-import { useState } from "react";
+// import { useState } from "react";
 import { useLessonsStore } from "../../store";
 import { findLessonForCell } from "../../utils/lessonUtils";
 import styles from "./DashboardGrid.module.css";
 import { LessonCard } from "./LessonCard";
 import type { Lesson } from "../../store/types";
 import { ContextMenu } from "../ContextMenu/ContextMenu";
+import { useContextMenu } from "../../hooks/ContextMenu/useContextMenu";
 
 type Props = {
   dayIndex: number;
@@ -13,24 +14,22 @@ type Props = {
 };
 
 export const DashboardCell = ({ dayIndex, timeSlot, date }: Props) => {
-  const lessons = useLessonsStore((state) => state.lessons);
-	const openModal = useLessonsStore((state) => state.openModal);
-	const setModalMode = useLessonsStore((state) => state.setModalMode);
-	const setCurrentCellTimeData = useLessonsStore((state) => state.setCurrentCellTimeData)
+	const lessons = useLessonsStore((state) => state.lessons);
+	const setCurrentCellTimeData = useLessonsStore((state) => state.setCurrentCellTimeData);
 
-	const [contextMenu, setContextMenu] = useState<{
-		visible: boolean,
-		x: number,
-		y: number,
-		lesson: Lesson | null,
-		anchorElement: HTMLElement | null;
-	}>({
-		visible: false,
-		x: 0,
-		y: 0,
-		lesson: null,
-		anchorElement: null
-	})
+	const { 		
+		menuRef,
+		position,
+		openModal,
+		setModalMode,
+		setCurrentEditLesson,
+		openMenu,
+		closeMenu,
+		contextMenu 
+	} = useContextMenu();
+  
+	// const openModal = useLessonsStore((state) => state.openModal);
+	// const setModalMode = useLessonsStore((state) => state.setModalMode);
 
   if (!lessons)
     return (
@@ -50,23 +49,11 @@ export const DashboardCell = ({ dayIndex, timeSlot, date }: Props) => {
 	const handleOpenMenu = (event: React.MouseEvent, lesson: Lesson) => {
 		event.stopPropagation();
 		const anchor = event.currentTarget as HTMLElement;
-		setContextMenu({
-			visible: true,
-			x: event.clientX,
-			y: event.clientY,
-			lesson: lesson,
-			anchorElement: anchor
-		})
+		openMenu(event.clientX, event.clientY, lesson, anchor)
 	}
 
 	const handleCloseMenu = () => {
-		setContextMenu({
-			visible: false,
-			x: 0,
-			y: 0,
-			lesson: null,
-			anchorElement: null,
-		})
+		closeMenu();
 	}
 
   const cellData = findLessonForCell(lessons, dayIndex, timeSlot, date);
@@ -88,12 +75,14 @@ export const DashboardCell = ({ dayIndex, timeSlot, date }: Props) => {
       )}
 			{contextMenu.visible && contextMenu.lesson && 
 				<ContextMenu 
-				menuX={contextMenu.x} 
-				menuY={contextMenu.y} 
-				lesson={contextMenu.lesson} 
+				lesson={contextMenu.lesson}
+				menuRef={menuRef}     
+        position={position}
+				openModal={openModal} 
 				onClose={handleCloseMenu}
+				setModalMode={setModalMode}
+				setCurrentEditLesson={setCurrentEditLesson}
 				date={date}
-				anchorElement={contextMenu.anchorElement}
 			/>}
     </div>
   );

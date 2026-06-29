@@ -1,40 +1,73 @@
 import { useEffect, useRef, useState } from "react";
 import { useLessonsStore } from "../../store";
+import type { Lesson } from "../../store/types";
 
-type Props = {
-	menuX: number,       
-  menuY: number,
-	anchorElement: HTMLElement | null,
-	onClose: () => void
-}
 
-export const useContextMenu = ({menuX, menuY, anchorElement, onClose}: Props) => {
+export const useContextMenu = () => {
 	const menuRef = useRef<HTMLDivElement>(null);
-  const [position, setPosition] = useState({ x: menuX, y: menuY });
+  const [position, setPosition] = useState({ x: 0, y: 0});
 	const [initialOffset, setInitialOffset] = useState({ x: 0, y: 0 });
 
 	const openModal = useLessonsStore((state) => state.openModal);
 	const setModalMode = useLessonsStore((state) => state.setModalMode);
 	const setCurrentEditLesson = useLessonsStore((state) => state.setCurrentEditLesson);
 
+	const [contextMenu, setContextMenu] = useState<{
+		visible: boolean,
+		x: number,
+		y: number,
+		lesson: Lesson | null,
+		anchorElement: HTMLElement | null;
+	}>({
+		visible: false,
+		x: 0,
+		y: 0,
+		lesson: null,
+		anchorElement: null
+	})
+
+	const openMenu = (x: number, y: number, lesson: Lesson, anchorElement: HTMLElement) => {
+		setContextMenu({
+			visible: true,
+			x,
+			y,
+			lesson,
+			anchorElement
+		})
+	}
+
+	const closeMenu = () => {
+		setContextMenu({
+			visible: false,
+			x: 0,
+			y: 0,
+			lesson: null,
+			anchorElement: null,
+		})
+	}
+
+
 	// При монтировании запоминаем разницу между кликом и позицией карточки
 	useEffect(() => {
-    if (!anchorElement) return;
+    if (!contextMenu.visible || !contextMenu.anchorElement) return;
 
-    const rect = anchorElement.getBoundingClientRect();
+    const rect = contextMenu.anchorElement.getBoundingClientRect();
     // Запоминаем, насколько клик смещён относительно левого/верхнего края карточки
     setInitialOffset({
-      x: menuX - rect.left,
-      y: menuY - rect.top,
+      x: contextMenu.x - rect.left,
+      y: contextMenu.y - rect.top,
     });
-  }, [anchorElement, menuX, menuY]);
+		setPosition({ x: contextMenu.x, y: contextMenu.y });
+  }, [contextMenu.visible]);
 
 	// Обновляем позицию при скролле
   useEffect(() => {
-    if (!anchorElement) return;
+    if (!contextMenu.visible || !contextMenu.anchorElement) return;
 
     const updatePosition = () => {
-      const rect = anchorElement.getBoundingClientRect();
+			if (!contextMenu.anchorElement) return;
+
+      const rect = contextMenu.anchorElement.getBoundingClientRect();
       const windowWidth = window.innerWidth;
       const windowHeight = window.innerHeight;
 
@@ -73,7 +106,7 @@ export const useContextMenu = ({menuX, menuY, anchorElement, onClose}: Props) =>
 
     // Подписываемся на все скролл-контейнеры
     const scrollContainers: HTMLElement[] = [];
-    let parent = anchorElement.parentElement;
+    let parent = contextMenu.anchorElement.parentElement;
     while (parent) {
       if (parent.scrollHeight > parent.clientHeight) {
         scrollContainers.push(parent);
@@ -89,19 +122,21 @@ export const useContextMenu = ({menuX, menuY, anchorElement, onClose}: Props) =>
         container.removeEventListener("scroll", handleScroll);
       });
     };
-  }, [anchorElement, initialOffset]);
+  }, [contextMenu.visible, contextMenu.anchorElement, initialOffset]);
 
   // Закрытие по клику вне и Escape
   useEffect(() => {
+		if (!contextMenu.visible) return;
+
     const handleClickOutside = (event: MouseEvent) => {
       if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
-        onClose();
+        closeMenu();
       }
     };
 
     const handleEscape = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
-        onClose();
+        closeMenu();
       }
     };
 
@@ -112,13 +147,16 @@ export const useContextMenu = ({menuX, menuY, anchorElement, onClose}: Props) =>
       document.removeEventListener("mousedown", handleClickOutside);
       document.removeEventListener("keydown", handleEscape);
     };
-  }, [onClose]);
+  }, [contextMenu.visible]);
 
 	return {
 		menuRef,
+		position,
 		openModal,
 		setModalMode,
 		setCurrentEditLesson,
-		position
+		openMenu,
+		closeMenu,
+		contextMenu
 	}
 }
