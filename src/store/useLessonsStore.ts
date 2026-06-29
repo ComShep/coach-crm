@@ -95,8 +95,15 @@ export const useLessonsStore = create<LessonsStore>()(
 		setCurrentEditLesson: (lesson: Lesson) => set({currentEditLesson: lesson}),
 		addLesson: (newLessonData) =>  {
 			const { lessons } = get();
-			const newLesson = { id: uuidv4(), ...newLessonData}
+			const newLesson = { ...newLessonData, id: uuidv4()}
   		set({ lessons: lessons ? [...lessons, newLesson] : [newLesson] });
+		},
+		editLesson: (editLessonData) =>  {
+			const { lessons, currentEditLesson } = get();
+			if (!lessons || !currentEditLesson) return;
+
+			const changedLessons = lessons.map(lesson => lesson.id === currentEditLesson.id ? {...editLessonData, id: lesson.id} : lesson)
+  		set({ lessons: changedLessons });
 		}
   }), 
   { name: "LessonStore" }
