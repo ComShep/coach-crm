@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useLessonsStore } from "../../store";
 import type { Lesson } from "../../store/types";
 import { generateTimeSlots, getNexTime } from "../../utils/schedule";
+import { validateLesson } from "../../utils/lessonUtils";
 
 const initModalState: Lesson = {
   id: "",
@@ -26,6 +27,9 @@ export const useLessonForm = () => {
 
 	const [lessonFormValue, setLessonFormValue] = useState<Lesson>(initModalState);
 
+	const [errorShow, setErrorShow] = useState(false);
+	const [errorText, setErrorText] = useState<string | null>(null);
+
 	const timeSlots = generateTimeSlots();
 
 	useEffect(() => {
@@ -45,13 +49,45 @@ export const useLessonForm = () => {
 		}
 	}, [typeOfOpeningModal]);
 
+	const inputChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+    inputName: keyof Lesson,
+  ) => {
+    const inputValue =
+      inputName === "dayOfWeek"
+        ? Number(event.target.value)
+        : event.target.value;
+    setLessonFormValue({ ...lessonFormValue, [inputName]: inputValue });
+  };
+
+	const handleClickSave = () => {
+			setErrorShow(false);
+			setErrorText(null);
+			const validation = validateLesson(lessonFormValue, lessons || [])
+			if (!validation.isValid) {
+				setErrorShow(true);
+				setErrorText(validation.error);
+	
+				return;
+			}
+		}
+
+	const handleCloseModal = () => {
+		closeModal();
+    setModalMode("close");
+	}
+
 	return {
 		lessons,
 		closeModal,
 		setModalMode,
 		typeOfOpeningModal,
 		lessonFormValue,
-		setLessonFormValue,
-		timeSlots
+		timeSlots,
+		inputChange,
+		handleCloseModal,
+		handleClickSave,
+		errorShow,
+		errorText
 	}
 }

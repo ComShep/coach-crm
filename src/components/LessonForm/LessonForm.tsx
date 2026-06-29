@@ -1,53 +1,19 @@
 import styles from "./LessonForm.module.css";
-import type { Lesson } from "../../store/types";
 import { IconDate, IconSubject, IconTime, IconUser } from "../assets/icons";
 import { Button } from "../assets/Button/Button";
 import { useLessonForm } from "../../hooks/LessonForm/useLessonForm";
-import { useState } from "react";
-// import { getSlotNumber } from "../../utils/schedule";
-import { validateLesson } from "../../utils/lessonUtils";
 
 export const LessonForm = () => {
 	const { 
-		lessons,
-		closeModal,
-		setModalMode,
 		typeOfOpeningModal,
 		lessonFormValue,
-		setLessonFormValue,
-		timeSlots
+		timeSlots,
+		inputChange,
+		handleCloseModal,
+		handleClickSave,
+		errorShow,
+		errorText
 	} = useLessonForm();
-
-  const handleClickClose = () => {
-    closeModal();
-    setModalMode("close");
-  };
-
-	const [errorShow, setErrorShow] = useState(false);
-	const [errorText, setErrorText] = useState<string | null>(null)
-
-	const handleClickSave = () => {
-		setErrorShow(false);
-		setErrorText(null);
-		const validation = validateLesson(lessonFormValue, lessons || [])
-		if (!validation.isValid) {
-			setErrorShow(true);
-			setErrorText(validation.error);
-
-			return;
-		}
-	}
-
-  const handleChange = (
-    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
-    inputName: keyof Lesson,
-  ) => {
-    const inputValue =
-      inputName === "dayOfWeek"
-        ? Number(event.target.value)
-        : event.target.value;
-    setLessonFormValue({ ...lessonFormValue, [inputName]: inputValue });
-  };
 
   return (
     <div className={styles.modal}>
@@ -57,7 +23,7 @@ export const LessonForm = () => {
           <select
             className={styles.select}
             value={lessonFormValue.type}
-            onChange={(event) => handleChange(event, "type")}
+            onChange={(event) => inputChange(event, "type")}
           >
             <option value="recurring">Периодическое</option>
             <option value="single">Разовое</option>
@@ -70,7 +36,7 @@ export const LessonForm = () => {
             <input
               className={styles.formInput}
               value={lessonFormValue.studentName}
-              onChange={(event) => handleChange(event, "studentName")}
+              onChange={(event) => inputChange(event, "studentName")}
               placeholder="Например: Иван Иванов"
             />
           </div>
@@ -82,7 +48,7 @@ export const LessonForm = () => {
             <input
               className={styles.formInput}
               value={lessonFormValue.subject}
-              onChange={(event) => handleChange(event, "subject")}
+              onChange={(event) => inputChange(event, "subject")}
               placeholder="Например: Математика"
             />
           </div>
@@ -94,7 +60,7 @@ export const LessonForm = () => {
               <IconDate />
               <select
                 value={lessonFormValue.dayOfWeek}
-                onChange={(event) => handleChange(event, "dayOfWeek")}
+                onChange={(event) => inputChange(event, "dayOfWeek")}
                 className={styles.select}
               >
                 <option value="0">Понедельник</option>
@@ -117,7 +83,7 @@ export const LessonForm = () => {
                 className={styles.select}
                 type="date"
                 value={lessonFormValue.singleDate}
-                onChange={(event) => handleChange(event, "singleDate")}
+                onChange={(event) => inputChange(event, "singleDate")}
               />
             </div>
           </div>
@@ -130,7 +96,7 @@ export const LessonForm = () => {
 							<select
 								className={styles.select}
 								value={lessonFormValue.startTime}
-								onChange={(event) => handleChange(event, "startTime")}
+								onChange={(event) => inputChange(event, "startTime")}
 							>
 								{timeSlots.slice(0, -1).map((timeSlot) => {
 									return (
@@ -149,7 +115,7 @@ export const LessonForm = () => {
 							<select
 								className={styles.select}
 								value={lessonFormValue.endTime}
-								onChange={(event) => handleChange(event, "endTime")}
+								onChange={(event) => inputChange(event, "endTime")}
 							>
 								{timeSlots.slice(1).map((timeSlot) => {
 									return (
@@ -162,11 +128,11 @@ export const LessonForm = () => {
 						</div>
 					</div>
 				</div>
-				{errorShow &&<div className={styles.error}>
+				{errorShow && <div className={styles.error}>
 					⚠️ {errorText}
 				</div>}
 				<div className={styles.actions}>
-					<Button title="Закрыть" handleClick={handleClickClose} color={false}/>
+					<Button title="Закрыть" handleClick={handleCloseModal} color={false}/>
 					<Button title="Сохранить" handleClick={handleClickSave}/>
 				</div>
       </div>
