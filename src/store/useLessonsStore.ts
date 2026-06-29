@@ -7,7 +7,7 @@ export const demoLessons: Lesson[] = [
     id: "1",
     studentName: "Анна Смирнова",
     subject: "Английский язык",
-    dayOfWeek: 0, // понедельник
+    dayOfWeek: 0, 
     startTime: "10:00",
     endTime: "11:30",
     type: "recurring",
@@ -17,7 +17,7 @@ export const demoLessons: Lesson[] = [
     id: "2",
     studentName: "Матвей Кузнецов",
     subject: "Математика",
-    dayOfWeek: 1, // вторник
+    dayOfWeek: 1, 
     startTime: "14:00",
     endTime: "15:30",
     type: "recurring",
@@ -27,7 +27,7 @@ export const demoLessons: Lesson[] = [
     id: "3",
     studentName: "София Морозова",
     subject: "Физика",
-    dayOfWeek: 2, // среда
+    dayOfWeek: 2, 
     startTime: "11:30",
     endTime: "12:30",
     type: "recurring",
@@ -37,7 +37,7 @@ export const demoLessons: Lesson[] = [
     id: "4",
     studentName: "Игорь Дмитриев",
     subject: "Программирование",
-    dayOfWeek: 3, // четверг
+    dayOfWeek: 3, 
     startTime: "16:00",
     endTime: "18:00",
     type: "recurring",
@@ -47,7 +47,7 @@ export const demoLessons: Lesson[] = [
     id: "5",
     studentName: "Екатерина Волкова",
     subject: "Химия",
-    dayOfWeek: 6, // пятница
+    dayOfWeek: 6, 
     startTime: "09:00",
     endTime: "10:30",
     type: "recurring",
@@ -89,7 +89,7 @@ export const useLessonsStore = create<LessonsStore>()(
 		toggleModalShow: () => set((state) => ({modalShow: !state.modalShow})),
 		openModal: (typeOfOpening: TypeOfOpeningModal) => set({typeOfOpeningModal: typeOfOpening, modalShow: true}),
 		closeModal: () => set({modalShow: false}),
-		setModalMode: (mode) => set({modalMode: mode}), 
+		setModalMode: (mode) => set({modalMode: mode}),
 		setCurrentCellTimeData: (dayOfWeek: number, date: string, time: string) =>  set({currentCellDayOfWeek: dayOfWeek, currentCellDate: date, currentCellTime: time}),
 		setCurrentEditLesson: (lesson: Lesson) => set({currentEditLesson: lesson})
   }), 

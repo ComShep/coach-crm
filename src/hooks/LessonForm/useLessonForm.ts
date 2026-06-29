@@ -14,9 +14,8 @@ const initModalState: Lesson = {
   singleDate: "",
 };
 
-
-
 export const useLessonForm = () => {
+	const lessons = useLessonsStore((state) => state.lessons);
 	const closeModal = useLessonsStore((state) => state.closeModal);
 	const setModalMode = useLessonsStore((state) => state.setModalMode);
 	const currentCellDayOfWeek = useLessonsStore((state) => state.currentCellDayOfWeek,);
@@ -47,6 +46,7 @@ export const useLessonForm = () => {
 	}, [typeOfOpeningModal]);
 
 	return {
+		lessons,
 		closeModal,
 		setModalMode,
 		typeOfOpeningModal,

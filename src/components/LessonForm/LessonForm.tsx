@@ -3,9 +3,13 @@ import type { Lesson } from "../../store/types";
 import { IconDate, IconSubject, IconTime, IconUser } from "../assets/icons";
 import { Button } from "../assets/Button/Button";
 import { useLessonForm } from "../../hooks/LessonForm/useLessonForm";
+import { useState } from "react";
+// import { getSlotNumber } from "../../utils/schedule";
+import { validateLesson } from "../../utils/lessonUtils";
 
 export const LessonForm = () => {
 	const { 
+		lessons,
 		closeModal,
 		setModalMode,
 		typeOfOpeningModal,
@@ -18,6 +22,21 @@ export const LessonForm = () => {
     closeModal();
     setModalMode("close");
   };
+
+	const [errorShow, setErrorShow] = useState(false);
+	const [errorText, setErrorText] = useState<string | null>(null)
+
+	const handleClickSave = () => {
+		setErrorShow(false);
+		setErrorText(null);
+		const validation = validateLesson(lessonFormValue, lessons || [])
+		if (!validation.isValid) {
+			setErrorShow(true);
+			setErrorText(validation.error);
+
+			return;
+		}
+	}
 
   const handleChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
@@ -143,9 +162,12 @@ export const LessonForm = () => {
 						</div>
 					</div>
 				</div>
+				{errorShow &&<div className={styles.error}>
+					⚠️ {errorText}
+				</div>}
 				<div className={styles.actions}>
 					<Button title="Закрыть" handleClick={handleClickClose} color={false}/>
-					<Button title="Сохранить" handleClick={handleClickClose}/>
+					<Button title="Сохранить" handleClick={handleClickSave}/>
 				</div>
       </div>
     </div>
