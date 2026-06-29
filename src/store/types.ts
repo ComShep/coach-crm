@@ -43,11 +43,11 @@ interface LessonsAction {
 	setModalMode: (mode: ModalModeTypes) => void,
 	setCurrentCellTimeData: (dayOfWeek: number, date: string, time: string) => void,
 	setCurrentEditLesson: (lesson: Lesson) => void,
-	// addLesson?: (lesson: Lesson) => void
+	addLesson: (lesson: Lesson) => void
 }
 
 export interface Lesson {
-	id: string,
+	id?: string,
 	studentName: string,
 	subject: string,
 	dayOfWeek: number,

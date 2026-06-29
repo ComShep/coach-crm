@@ -18,12 +18,14 @@ const initModalState: Lesson = {
 export const useLessonForm = () => {
 	const lessons = useLessonsStore((state) => state.lessons);
 	const closeModal = useLessonsStore((state) => state.closeModal);
+	const modalMode = useLessonsStore((state) => state.modalMode)
 	const setModalMode = useLessonsStore((state) => state.setModalMode);
 	const currentCellDayOfWeek = useLessonsStore((state) => state.currentCellDayOfWeek,);
 	const currentCellDate = useLessonsStore((state) => state.currentCellDate);
 	const currentCellTime = useLessonsStore((state) => state.currentCellTime);
 	const typeOfOpeningModal = useLessonsStore((state) => state.typeOfOpeningModal);
 	const currentEditLesson = useLessonsStore((state) => state.currentEditLesson);
+	const addLesson = useLessonsStore ((state) => state.addLesson)
 
 	const [lessonFormValue, setLessonFormValue] = useState<Lesson>(initModalState);
 
@@ -68,6 +70,13 @@ export const useLessonForm = () => {
 				setErrorShow(true);
 				setErrorText(validation.error);
 	
+				return;
+			}
+
+			if (modalMode === 'create') {
+				addLesson(lessonFormValue);
+				closeModal();
+    		setModalMode("close");
 				return;
 			}
 		}

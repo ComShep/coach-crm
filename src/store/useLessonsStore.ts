@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { devtools } from "zustand/middleware";
 import type { Lesson, LessonsStore, TypeOfOpeningModal } from "./types";
+import { v4 as uuidv4 } from 'uuid';
 
 export const demoLessons: Lesson[] = [
   {
@@ -76,7 +77,7 @@ export const demoLessons: Lesson[] = [
 ];
 
 export const useLessonsStore = create<LessonsStore>()(
-  devtools((set) => ({
+  devtools((set, get) => ({
     lessons: demoLessons,
 		modalShow: false,
 		modalMode: 'close',
@@ -91,7 +92,12 @@ export const useLessonsStore = create<LessonsStore>()(
 		closeModal: () => set({modalShow: false}),
 		setModalMode: (mode) => set({modalMode: mode}),
 		setCurrentCellTimeData: (dayOfWeek: number, date: string, time: string) =>  set({currentCellDayOfWeek: dayOfWeek, currentCellDate: date, currentCellTime: time}),
-		setCurrentEditLesson: (lesson: Lesson) => set({currentEditLesson: lesson})
+		setCurrentEditLesson: (lesson: Lesson) => set({currentEditLesson: lesson}),
+		addLesson: (newLessonData) =>  {
+			const { lessons } = get();
+			const newLesson = { id: uuidv4(), ...newLessonData}
+  		set({ lessons: lessons ? [...lessons, newLesson] : [newLesson] });
+		}
   }), 
   { name: "LessonStore" }
 ));
