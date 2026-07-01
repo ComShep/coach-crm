@@ -28,7 +28,7 @@ export const getDurationSlots = (startTime: string, endTime: string): number => 
 	return endSlot - startSlot
 }
 
-export const getNexTime = (time: string, timeSlots: string[]) => {
+export const getNextTime = (time: string, timeSlots: string[]) => {
 	const index = timeSlots.indexOf(time);
-	return timeSlots[index + 1] || time;
+	return timeSlots[index + 2] || time;
 }

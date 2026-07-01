@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useLessonsStore } from "../../store";
 import type { Lesson } from "../../store/types";
-import { generateTimeSlots, getNexTime } from "../../utils/schedule";
+import { generateTimeSlots, getNextTime } from "../../utils/schedule";
 import { validateLesson } from "../../utils/lessonUtils";
 
 const initModalState: Lesson = {
@@ -9,8 +9,8 @@ const initModalState: Lesson = {
   studentName: "",
   subject: "",
   dayOfWeek: 0,
-  startTime: "",
-  endTime: "",
+  startTime: "08:00",
+  endTime: "09:00",
   type: "recurring",
   singleDate: "",
 };
@@ -41,7 +41,7 @@ export const useLessonForm = () => {
 				...prevState,
 				dayOfWeek: currentCellDayOfWeek,
 				startTime: currentCellTime,
-				endTime: getNexTime(currentCellTime, timeSlots),
+				endTime: getNextTime(currentCellTime, timeSlots),
 				singleDate: currentCellDate,
 				type: currentCellDate ? "single" : "recurring",
 			}));

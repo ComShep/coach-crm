@@ -98,7 +98,7 @@ export const LessonForm = () => {
 								value={lessonFormValue.startTime}
 								onChange={(event) => inputChange(event, "startTime")}
 							>
-								{timeSlots.slice(0, -1).map((timeSlot) => {
+								{timeSlots.slice(0, -2).map((timeSlot) => {
 									return (
 										<option key={`start-${timeSlot}`} value={timeSlot}>
 											{timeSlot}
@@ -117,7 +117,7 @@ export const LessonForm = () => {
 								value={lessonFormValue.endTime}
 								onChange={(event) => inputChange(event, "endTime")}
 							>
-								{timeSlots.slice(1).map((timeSlot) => {
+								{timeSlots.slice(2).map((timeSlot) => {
 									return (
 										<option key={`end-${timeSlot}`} value={timeSlot}>
 											{timeSlot}

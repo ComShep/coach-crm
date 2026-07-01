@@ -69,6 +69,13 @@ export const validateLesson = (
 		}
 	}
 
+	if(numOfEndSlot - numOfStartSlot < 2) {
+		return {
+			isValid: false,
+			error: 'Продолжительность занятия должна быть минимум 1 час'
+		}
+	}
+
 	const conflict = checkConflict(numOfStartSlot, numOfEndSlot, lesson, allLessons)
 
 	if (conflict) {
