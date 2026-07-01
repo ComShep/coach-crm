@@ -16,7 +16,7 @@ export const App = () => {
 						<Route path="/" element={<MainPage/>}/>
 						<Route path="/dashboard" element={<DashboardPage/>}/>
 					</Routes>
-					{modalShow && <LessonForm/>}
+					{modalShow && <div className="modal-layot"><LessonForm/></div>}
 				</div>
 			</BrowserRouter>
 		</>

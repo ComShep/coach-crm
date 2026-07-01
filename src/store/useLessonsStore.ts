@@ -81,13 +81,14 @@ export const useLessonsStore = create<LessonsStore>()(
     lessons: demoLessons,
 		modalShow: false,
 		modalMode: 'close',
+		confirmModalShow: false,
+		confirmModalMode: 'close',
 		currentCellDayOfWeek: 0,
 		currentCellDate: '',
 		currentCellTime: '',
 		typeOfOpeningModal: 'buttonClick',
 		currentEditLesson: null,
 
-		toggleModalShow: () => set((state) => ({modalShow: !state.modalShow})),
 		openModal: (typeOfOpening: TypeOfOpeningModal) => set({typeOfOpeningModal: typeOfOpening, modalShow: true}),
 		closeModal: () => set({modalShow: false}),
 		setModalMode: (mode) => set({modalMode: mode}),
@@ -105,12 +106,12 @@ export const useLessonsStore = create<LessonsStore>()(
 			const changedLessons = lessons.map(lesson => lesson.id === currentEditLesson.id ? {...editLessonData, id: lesson.id} : lesson)
   		set({ lessons: changedLessons });
 		},
-		cancelLesson: (canceledLessonId, cancelledDate) => {
-			const { lessons } = get();
-			if (!lessons) return;
+		cancelLesson: (cancelledDate) => {
+			const { lessons, currentEditLesson } = get();
+			if (!lessons || !currentEditLesson) return;
 
 			const changedLessons = lessons.map(lesson => {
-				if (lesson.id !== canceledLessonId) return lesson;
+				if (lesson.id !== currentEditLesson.id) return lesson;
 
 				const updatedCancelledInstances = [ ...(lesson.cancelledInstances || []), cancelledDate ];
 
@@ -121,12 +122,12 @@ export const useLessonsStore = create<LessonsStore>()(
 			})
 			set({lessons: changedLessons});
 		},
-		restoreLesson: (restoredLessonId, restoredLessonDate) => {
-			const { lessons } = get();
-			if (!lessons) return;
+		restoreLesson: (restoredLessonDate) => {
+			const { lessons, currentEditLesson } = get();
+			if (!lessons || !currentEditLesson ) return;
 
 			const changedLessons = lessons.map(lesson => {
-				if (lesson.id !== restoredLessonId) return lesson;
+				if (lesson.id !== currentEditLesson.id) return lesson;
 
 				const updatedCancelledInstances = (lesson.cancelledInstances || []).filter(date => date !== restoredLessonDate);
 

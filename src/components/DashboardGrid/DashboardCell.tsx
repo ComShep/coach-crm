@@ -48,7 +48,8 @@ export const DashboardCell = ({ dayIndex, timeSlot, date }: Props) => {
 	const handleOpenMenu = (event: React.MouseEvent, lesson: Lesson) => {
 		event.stopPropagation();
 		const anchor = event.currentTarget as HTMLElement;
-		openMenu(event.clientX, event.clientY, lesson, anchor)
+		openMenu(event.clientX, event.clientY, lesson, anchor);
+		setCurrentEditLesson(lesson)
 	}
 
   const cellData = findLessonForCell(lessons, dayIndex, timeSlot, date);
@@ -76,7 +77,6 @@ export const DashboardCell = ({ dayIndex, timeSlot, date }: Props) => {
 				openModal={openModal} 
 				onClose={closeMenu}
 				setModalMode={setModalMode}
-				setCurrentEditLesson={setCurrentEditLesson}
 				cancelLesson={cancelLesson}
 				restoreLesson={restoreLesson}
 				deleteLesson={deleteLesson}

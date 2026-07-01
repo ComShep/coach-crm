@@ -14,9 +14,8 @@ type Props = {
   position: { x: number; y: number };
   openModal: (type: TypeOfOpeningModal) => void;
   setModalMode: (mode: "create" | "edit" | "close") => void;
-  setCurrentEditLesson: (lesson: Lesson) => void;
-  cancelLesson: (id: string, date: string) => void;
-  restoreLesson: (id: string, date: string) => void;
+  cancelLesson: (date: string) => void;
+  restoreLesson: (date: string) => void;
   deleteLesson: (id: string) => void;
   isCancelled: boolean;
 };
@@ -29,26 +28,25 @@ export const ContextMenu = ({
   position,
   openModal,
   setModalMode,
-  setCurrentEditLesson,
   cancelLesson,
   restoreLesson,
   deleteLesson,
   isCancelled,
 }: Props) => {
+
   const handleEditClick = () => {
     openModal("lessonClick");
     setModalMode("edit");
     onClose();
-    setCurrentEditLesson(lesson);
   };
 
   const handleCancelClick = () => {
-    cancelLesson(lesson.id, date);
+    cancelLesson(date);
     onClose();
   };
 
   const handleRestoreClick = () => {
-    restoreLesson(lesson.id, date);
+    restoreLesson(date);
     onClose();
   };
 

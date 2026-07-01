@@ -37,7 +37,7 @@ type ModalModeTypes = 'create' | 'edit' | 'close';
 export type TypeOfOpeningModal = 'buttonClick' | 'cellClick' | 'lessonClick'
 
 interface LessonsAction {
-	toggleModalShow: () => void,
+	// toggleModalShow: () => void,
 	openModal: (typeOfOpening: TypeOfOpeningModal) => void,
 	closeModal: () => void,
 	setModalMode: (mode: ModalModeTypes) => void,
@@ -45,8 +45,8 @@ interface LessonsAction {
 	setCurrentEditLesson: (lesson: Lesson) => void,
 	addLesson: (newLessonData: Lesson) => void,
 	editLesson: (editLessonData: Lesson) => void,
-	cancelLesson: (canceledLessonId: string, cancelledDate: string) => void,
-	restoreLesson: (restoredLessonId: string, restoredLessonDate: string) => void,
+	cancelLesson: (cancelledDate: string) => void,
+	restoreLesson: (restoredLessonDate: string) => void,
 	deleteLesson: (deletedLessonId: string) => void
 }
 

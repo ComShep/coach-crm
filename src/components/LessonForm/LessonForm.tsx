@@ -17,7 +17,6 @@ export const LessonForm = () => {
 	} = useLessonForm();
 
   return (
-    <div className={styles.modal}>
       <div className={styles.modalContainer}>
         <div className={styles.modalHeader}>
 					{typeOfOpeningModal === 'lessonClick' ? <h2>Редактировать занятие</h2> : <h2>Добавить занятие</h2>}
@@ -135,6 +134,5 @@ export const LessonForm = () => {
 					<Button title="Сохранить" handleClick={handleClickSave}/>
 				</div>
       </div>
-    </div>
   );
 };
