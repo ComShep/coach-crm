@@ -29,6 +29,7 @@ interface LessonsState {
 	currentCellDayOfWeek: number,
 	currentCellDate: string,
 	currentCellTime: string,
+	currentLessonDate: string,
 	typeOfOpeningModal: TypeOfOpeningModal,
 	currentEditLesson: Lesson | null
 }
@@ -37,17 +38,17 @@ type ModalModeTypes = 'create' | 'edit' | 'close';
 export type TypeOfOpeningModal = 'buttonClick' | 'cellClick' | 'lessonClick'
 
 interface LessonsAction {
-	// toggleModalShow: () => void,
 	openModal: (typeOfOpening: TypeOfOpeningModal) => void,
 	closeModal: () => void,
 	setModalMode: (mode: ModalModeTypes) => void,
 	setCurrentCellTimeData: (dayOfWeek: number, date: string, time: string) => void,
+	setCurentLessonDate: (date: string) => void,
 	setCurrentEditLesson: (lesson: Lesson) => void,
 	addLesson: (newLessonData: Lesson) => void,
 	editLesson: (editLessonData: Lesson) => void,
-	cancelLesson: (cancelledDate: string) => void,
-	restoreLesson: (restoredLessonDate: string) => void,
-	deleteLesson: (deletedLessonId: string) => void
+	cancelLesson: () => void,
+	restoreLesson: () => void,
+	deleteLesson: () => void
 }
 
 export interface Lesson {

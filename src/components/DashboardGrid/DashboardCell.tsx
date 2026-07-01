@@ -22,6 +22,7 @@ export const DashboardCell = ({ dayIndex, timeSlot, date }: Props) => {
 		openModal,
 		setModalMode,
 		setCurrentEditLesson,
+		setCurentLessonDate,
 		openMenu,
 		closeMenu,
 		contextMenu,
@@ -49,7 +50,8 @@ export const DashboardCell = ({ dayIndex, timeSlot, date }: Props) => {
 		event.stopPropagation();
 		const anchor = event.currentTarget as HTMLElement;
 		openMenu(event.clientX, event.clientY, lesson, anchor);
-		setCurrentEditLesson(lesson)
+		setCurrentEditLesson(lesson);
+		setCurentLessonDate(date);
 	}
 
   const cellData = findLessonForCell(lessons, dayIndex, timeSlot, date);
@@ -81,7 +83,6 @@ export const DashboardCell = ({ dayIndex, timeSlot, date }: Props) => {
 				restoreLesson={restoreLesson}
 				deleteLesson={deleteLesson}
 				isCancelled={cellData.isCancelled}
-				date={date}
 			/>}
     </div>
   );

@@ -81,11 +81,12 @@ export const useLessonsStore = create<LessonsStore>()(
     lessons: demoLessons,
 		modalShow: false,
 		modalMode: 'close',
-		confirmModalShow: false,
-		confirmModalMode: 'close',
+		// confirmModalShow: false,
+		// confirmModalMode: 'close',
 		currentCellDayOfWeek: 0,
 		currentCellDate: '',
 		currentCellTime: '',
+		currentLessonDate: '',
 		typeOfOpeningModal: 'buttonClick',
 		currentEditLesson: null,
 
@@ -93,6 +94,7 @@ export const useLessonsStore = create<LessonsStore>()(
 		closeModal: () => set({modalShow: false}),
 		setModalMode: (mode) => set({modalMode: mode}),
 		setCurrentCellTimeData: (dayOfWeek: number, date: string, time: string) =>  set({currentCellDayOfWeek: dayOfWeek, currentCellDate: date, currentCellTime: time}),
+		setCurentLessonDate: (date: string) => set({currentLessonDate: date}),
 		setCurrentEditLesson: (lesson: Lesson) => set({currentEditLesson: lesson}),
 		addLesson: (newLessonData) =>  {
 			const { lessons } = get();
@@ -106,14 +108,14 @@ export const useLessonsStore = create<LessonsStore>()(
 			const changedLessons = lessons.map(lesson => lesson.id === currentEditLesson.id ? {...editLessonData, id: lesson.id} : lesson)
   		set({ lessons: changedLessons });
 		},
-		cancelLesson: (cancelledDate) => {
-			const { lessons, currentEditLesson } = get();
-			if (!lessons || !currentEditLesson) return;
+		cancelLesson: () => {
+			const { lessons, currentEditLesson, currentLessonDate} = get();
+			if (!lessons || !currentEditLesson || !currentLessonDate) return;
 
 			const changedLessons = lessons.map(lesson => {
 				if (lesson.id !== currentEditLesson.id) return lesson;
 
-				const updatedCancelledInstances = [ ...(lesson.cancelledInstances || []), cancelledDate ];
+				const updatedCancelledInstances = [ ...(lesson.cancelledInstances || []), currentLessonDate ];
 
 				return {
 					...lesson,
@@ -122,14 +124,14 @@ export const useLessonsStore = create<LessonsStore>()(
 			})
 			set({lessons: changedLessons});
 		},
-		restoreLesson: (restoredLessonDate) => {
-			const { lessons, currentEditLesson } = get();
-			if (!lessons || !currentEditLesson ) return;
+		restoreLesson: () => {
+			const { lessons, currentEditLesson, currentLessonDate } = get();
+			if (!lessons || !currentEditLesson || !currentLessonDate ) return;
 
 			const changedLessons = lessons.map(lesson => {
 				if (lesson.id !== currentEditLesson.id) return lesson;
 
-				const updatedCancelledInstances = (lesson.cancelledInstances || []).filter(date => date !== restoredLessonDate);
+				const updatedCancelledInstances = (lesson.cancelledInstances || []).filter(date => date !== currentLessonDate);
 
 				return {
 					...lesson,
@@ -139,11 +141,11 @@ export const useLessonsStore = create<LessonsStore>()(
 
 			set({lessons: changedLessons})
 		},
-		deleteLesson: (deletedLessonId) => {
-			const { lessons } = get();
-			if (!lessons) return;
+		deleteLesson: () => {
+			const { lessons, currentEditLesson  } = get();
+			if ( !lessons || !currentEditLesson ) return;
 
-			const changedLessons = lessons.filter(lesson => lesson.id !== deletedLessonId);
+			const changedLessons = lessons.filter(lesson => lesson.id !== currentEditLesson.id);
 			
 			set({lessons: changedLessons})
 		}

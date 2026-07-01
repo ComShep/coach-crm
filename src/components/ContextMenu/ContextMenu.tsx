@@ -9,21 +9,19 @@ import { CtxMenuButton } from "../assets/CtxMenuButton/CtxMenuButton";
 type Props = {
   lesson: Lesson;
   onClose: () => void;
-  date: string;
   menuRef: React.RefObject<HTMLDivElement | null>;
   position: { x: number; y: number };
   openModal: (type: TypeOfOpeningModal) => void;
   setModalMode: (mode: "create" | "edit" | "close") => void;
-  cancelLesson: (date: string) => void;
-  restoreLesson: (date: string) => void;
-  deleteLesson: (id: string) => void;
+  cancelLesson: () => void;
+  restoreLesson: () => void;
+  deleteLesson: () => void;
   isCancelled: boolean;
 };
 
 export const ContextMenu = ({
   lesson,
   onClose,
-  date,
   menuRef,
   position,
   openModal,
@@ -41,17 +39,17 @@ export const ContextMenu = ({
   };
 
   const handleCancelClick = () => {
-    cancelLesson(date);
+    cancelLesson();
     onClose();
   };
 
   const handleRestoreClick = () => {
-    restoreLesson(date);
+    restoreLesson();
     onClose();
   };
 
 	const handleDeleteClick = () => {
-		deleteLesson(lesson.id);
+		deleteLesson();
 		onClose();
 	}
 

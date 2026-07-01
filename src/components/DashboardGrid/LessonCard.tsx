@@ -7,7 +7,7 @@ import styles from './LessonCard.module.css'
 type Props = {
 	lesson: Lesson,
 	isCancelled: boolean,
-	onOpenMenu: (event: React.MouseEvent, lesson: Lesson) => void
+	onOpenMenu: (event: React.MouseEvent, lesson: Lesson) => void,
 }
 
 export const LessonCard = ({lesson, isCancelled, onOpenMenu}: Props) => {
