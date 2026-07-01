@@ -2,6 +2,7 @@ import styles from "./LessonForm.module.css";
 import { IconDate, IconSubject, IconTime, IconUser } from "../assets/icons";
 import { Button } from "../assets/Button/Button";
 import { useLessonForm } from "../../hooks/LessonForm/useLessonForm";
+import { ErrorMessage } from "./ErrorMessage";
 
 export const LessonForm = () => {
 	const { 
@@ -128,9 +129,7 @@ export const LessonForm = () => {
 						</div>
 					</div>
 				</div>
-				{errorShow && <div className={styles.error}>
-					⚠️ {errorText}
-				</div>}
+				{errorShow && <ErrorMessage errorText={errorText}/>}
 				<div className={styles.actions}>
 					<Button title="Закрыть" handleClick={handleCloseModal} color={false}/>
 					<Button title="Сохранить" handleClick={handleClickSave}/>

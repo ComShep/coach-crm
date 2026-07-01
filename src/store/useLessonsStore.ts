@@ -59,7 +59,7 @@ export const demoLessons: Lesson[] = [
     studentName: "Ольга Новикова",
     subject: "Биология",
     dayOfWeek: 1,
-    startTime: "15:00",
+    startTime: "15:30",
     endTime: "16:30",
     type: "single",
     singleDate: "2026-06-16",
