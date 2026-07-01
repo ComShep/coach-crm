@@ -120,7 +120,24 @@ export const useLessonsStore = create<LessonsStore>()(
 				}
 			})
 			set({lessons: changedLessons});
-		}, 
+		},
+		restoreLesson: (restoredLessonId, restoredLessonDate) => {
+			const { lessons } = get();
+			if (!lessons) return;
+
+			const changedLessons = lessons.map(lesson => {
+				if (lesson.id !== restoredLessonId) return lesson;
+
+				const updatedCancelledInstances = (lesson.cancelledInstances || []).filter(date => date !== restoredLessonDate);
+
+				return {
+					...lesson,
+					cancelledInstances: updatedCancelledInstances
+				}
+			});
+
+			set({lessons: changedLessons})
+		},
   }), 
   { name: "LessonStore" }
 ));

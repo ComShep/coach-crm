@@ -16,10 +16,11 @@ type Props = {
 	setModalMode: (mode: 'create' | 'edit' | 'close') => void;
 	setCurrentEditLesson: (lesson: Lesson) => void;
 	cancelLesson: (id: string, date: string) => void;
+	restoreLesson: (id: string, date: string) => void;
 	isCancelled: boolean
 };
 
-export const ContextMenu = ({ lesson, onClose, date, menuRef, position, openModal, setModalMode, setCurrentEditLesson, cancelLesson, isCancelled }: Props) => {
+export const ContextMenu = ({ lesson, onClose, date, menuRef, position, openModal, setModalMode, setCurrentEditLesson, cancelLesson, restoreLesson, isCancelled }: Props) => {
   const handleEditClick = () => {
     openModal("lessonClick");
     setModalMode("edit");
@@ -29,6 +30,11 @@ export const ContextMenu = ({ lesson, onClose, date, menuRef, position, openModa
 
 	const handleCancelClick = () => {
 		cancelLesson(lesson.id, date);
+		onClose();
+	}
+
+	const handleRestoreClick = () => {
+		restoreLesson(lesson.id, date);
 		onClose();
 	}
 
@@ -52,7 +58,7 @@ export const ContextMenu = ({ lesson, onClose, date, menuRef, position, openModa
         <CtxMenuButton
           title={isCancelled ? "Восстановить урок" : "Отменить урок"}
           Icon={isCancelled ? IoReload : TbCancel}
-          onClick={handleCancelClick}
+          onClick={isCancelled ? handleRestoreClick : handleCancelClick}
         />
       )}
       <div className={styles.separator}></div>
