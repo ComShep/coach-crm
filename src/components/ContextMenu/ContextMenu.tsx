@@ -10,17 +10,31 @@ type Props = {
   lesson: Lesson;
   onClose: () => void;
   date: string;
-	menuRef: React.RefObject<HTMLDivElement | null>;
-	position: { x: number, y: number };
-	openModal: (type: TypeOfOpeningModal) => void;
-	setModalMode: (mode: 'create' | 'edit' | 'close') => void;
-	setCurrentEditLesson: (lesson: Lesson) => void;
-	cancelLesson: (id: string, date: string) => void;
-	restoreLesson: (id: string, date: string) => void;
-	isCancelled: boolean
+  menuRef: React.RefObject<HTMLDivElement | null>;
+  position: { x: number; y: number };
+  openModal: (type: TypeOfOpeningModal) => void;
+  setModalMode: (mode: "create" | "edit" | "close") => void;
+  setCurrentEditLesson: (lesson: Lesson) => void;
+  cancelLesson: (id: string, date: string) => void;
+  restoreLesson: (id: string, date: string) => void;
+  deleteLesson: (id: string) => void;
+  isCancelled: boolean;
 };
 
-export const ContextMenu = ({ lesson, onClose, date, menuRef, position, openModal, setModalMode, setCurrentEditLesson, cancelLesson, restoreLesson, isCancelled }: Props) => {
+export const ContextMenu = ({
+  lesson,
+  onClose,
+  date,
+  menuRef,
+  position,
+  openModal,
+  setModalMode,
+  setCurrentEditLesson,
+  cancelLesson,
+  restoreLesson,
+  deleteLesson,
+  isCancelled,
+}: Props) => {
   const handleEditClick = () => {
     openModal("lessonClick");
     setModalMode("edit");
@@ -28,13 +42,18 @@ export const ContextMenu = ({ lesson, onClose, date, menuRef, position, openModa
     setCurrentEditLesson(lesson);
   };
 
-	const handleCancelClick = () => {
-		cancelLesson(lesson.id, date);
-		onClose();
-	}
+  const handleCancelClick = () => {
+    cancelLesson(lesson.id, date);
+    onClose();
+  };
 
-	const handleRestoreClick = () => {
-		restoreLesson(lesson.id, date);
+  const handleRestoreClick = () => {
+    restoreLesson(lesson.id, date);
+    onClose();
+  };
+
+	const handleDeleteClick = () => {
+		deleteLesson(lesson.id);
 		onClose();
 	}
 
@@ -53,7 +72,11 @@ export const ContextMenu = ({ lesson, onClose, date, menuRef, position, openModa
         {lesson.studentName} · {lesson.startTime}
       </div>
       <div className={styles.separator}></div>
-      <CtxMenuButton title="Редактировать" Icon={GrEdit} onClick={handleEditClick} />
+      <CtxMenuButton
+        title="Редактировать"
+        Icon={GrEdit}
+        onClick={handleEditClick}
+      />
       {lesson.type === "recurring" && (
         <CtxMenuButton
           title={isCancelled ? "Восстановить урок" : "Отменить урок"}
@@ -65,7 +88,7 @@ export const ContextMenu = ({ lesson, onClose, date, menuRef, position, openModa
       <CtxMenuButton
         title="Удалить"
         Icon={RiDeleteBinLine}
-        onClick={() => console.log(123)}
+        onClick={handleDeleteClick}
         color="red"
       />
     </div>

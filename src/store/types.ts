@@ -47,6 +47,7 @@ interface LessonsAction {
 	editLesson: (editLessonData: Lesson) => void,
 	cancelLesson: (canceledLessonId: string, cancelledDate: string) => void,
 	restoreLesson: (restoredLessonId: string, restoredLessonDate: string) => void,
+	deleteLesson: (deletedLessonId: string) => void
 }
 
 export interface Lesson {

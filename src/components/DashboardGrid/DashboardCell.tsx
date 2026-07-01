@@ -27,6 +27,7 @@ export const DashboardCell = ({ dayIndex, timeSlot, date }: Props) => {
 		contextMenu,
 		cancelLesson,
 		restoreLesson,
+		deleteLesson
 	} = useContextMenu();
 
   if (!lessons)
@@ -78,6 +79,7 @@ export const DashboardCell = ({ dayIndex, timeSlot, date }: Props) => {
 				setCurrentEditLesson={setCurrentEditLesson}
 				cancelLesson={cancelLesson}
 				restoreLesson={restoreLesson}
+				deleteLesson={deleteLesson}
 				isCancelled={cellData.isCancelled}
 				date={date}
 			/>}

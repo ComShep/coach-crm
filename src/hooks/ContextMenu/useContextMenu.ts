@@ -13,6 +13,7 @@ export const useContextMenu = () => {
 	const setCurrentEditLesson = useLessonsStore((state) => state.setCurrentEditLesson);
 	const cancelLesson = useLessonsStore((state) => state.cancelLesson);
 	const restoreLesson = useLessonsStore((state) => state.restoreLesson);
+	const deleteLesson = useLessonsStore((state) => state.deleteLesson);
 
 	const [contextMenu, setContextMenu] = useState<{
 		visible: boolean,
@@ -160,6 +161,7 @@ export const useContextMenu = () => {
 		closeMenu,
 		cancelLesson,
 		restoreLesson,
+		deleteLesson,
 		contextMenu
 	}
 }

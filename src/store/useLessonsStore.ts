@@ -138,6 +138,14 @@ export const useLessonsStore = create<LessonsStore>()(
 
 			set({lessons: changedLessons})
 		},
+		deleteLesson: (deletedLessonId) => {
+			const { lessons } = get();
+			if (!lessons) return;
+
+			const changedLessons = lessons.filter(lesson => lesson.id !== deletedLessonId);
+			
+			set({lessons: changedLessons})
+		}
   }), 
   { name: "LessonStore" }
 ));
