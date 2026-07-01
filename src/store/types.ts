@@ -44,7 +44,8 @@ interface LessonsAction {
 	setCurrentCellTimeData: (dayOfWeek: number, date: string, time: string) => void,
 	setCurrentEditLesson: (lesson: Lesson) => void,
 	addLesson: (newLessonData: Lesson) => void,
-	editLesson: (editLessonData: Lesson) => void
+	editLesson: (editLessonData: Lesson) => void,
+	cancelLesson: (canceledLessonId: string, cancelledDate: string) => void,
 }
 
 export interface Lesson {

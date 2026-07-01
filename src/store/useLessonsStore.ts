@@ -104,7 +104,23 @@ export const useLessonsStore = create<LessonsStore>()(
 
 			const changedLessons = lessons.map(lesson => lesson.id === currentEditLesson.id ? {...editLessonData, id: lesson.id} : lesson)
   		set({ lessons: changedLessons });
-		}
+		},
+		cancelLesson: (canceledLessonId, cancelledDate) => {
+			const { lessons } = get();
+			if (!lessons) return;
+
+			const changedLessons = lessons.map(lesson => {
+				if (lesson.id !== canceledLessonId) return lesson;
+
+				const updatedCancelledInstances = [ ...(lesson.cancelledInstances || []), cancelledDate ];
+
+				return {
+					...lesson,
+					cancelledInstances: updatedCancelledInstances
+				}
+			})
+			set({lessons: changedLessons});
+		}, 
   }), 
   { name: "LessonStore" }
 ));

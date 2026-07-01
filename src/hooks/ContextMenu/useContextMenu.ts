@@ -11,6 +11,7 @@ export const useContextMenu = () => {
 	const openModal = useLessonsStore((state) => state.openModal);
 	const setModalMode = useLessonsStore((state) => state.setModalMode);
 	const setCurrentEditLesson = useLessonsStore((state) => state.setCurrentEditLesson);
+	const cancelLesson = useLessonsStore((state) => state.cancelLesson)
 
 	const [contextMenu, setContextMenu] = useState<{
 		visible: boolean,
@@ -45,7 +46,6 @@ export const useContextMenu = () => {
 			anchorElement: null,
 		})
 	}
-
 
 	// При монтировании запоминаем разницу между кликом и позицией карточки
 	useEffect(() => {
@@ -157,6 +157,7 @@ export const useContextMenu = () => {
 		setCurrentEditLesson,
 		openMenu,
 		closeMenu,
+		cancelLesson,
 		contextMenu
 	}
 }
