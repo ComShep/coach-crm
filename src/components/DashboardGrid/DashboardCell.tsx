@@ -26,9 +26,6 @@ export const DashboardCell = ({ dayIndex, timeSlot, date }: Props) => {
 		openMenu,
 		closeMenu,
 		contextMenu,
-		cancelLesson,
-		restoreLesson,
-		deleteLesson
 	} = useContextMenu();
 
   if (!lessons)
@@ -79,9 +76,6 @@ export const DashboardCell = ({ dayIndex, timeSlot, date }: Props) => {
 				openModal={openModal} 
 				onClose={closeMenu}
 				setModalMode={setModalMode}
-				cancelLesson={cancelLesson}
-				restoreLesson={restoreLesson}
-				deleteLesson={deleteLesson}
 				isCancelled={cellData.isCancelled}
 			/>}
     </div>

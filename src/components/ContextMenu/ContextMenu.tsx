@@ -1,5 +1,5 @@
 import styles from "./ContextMenu.module.css";
-import type { Lesson, TypeOfOpeningModal } from "../../store/types";
+import type { Lesson, ModalModeTypes, TypeOfOpeningModal } from "../../store/types";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { TbCancel } from "react-icons/tb";
 import { GrEdit } from "react-icons/gr";
@@ -12,10 +12,7 @@ type Props = {
   menuRef: React.RefObject<HTMLDivElement | null>;
   position: { x: number; y: number };
   openModal: (type: TypeOfOpeningModal) => void;
-  setModalMode: (mode: "create" | "edit" | "close") => void;
-  cancelLesson: () => void;
-  restoreLesson: () => void;
-  deleteLesson: () => void;
+  setModalMode: (mode: ModalModeTypes) => void;
   isCancelled: boolean;
 };
 
@@ -26,9 +23,6 @@ export const ContextMenu = ({
   position,
   openModal,
   setModalMode,
-  cancelLesson,
-  restoreLesson,
-  deleteLesson,
   isCancelled,
 }: Props) => {
 
@@ -39,17 +33,20 @@ export const ContextMenu = ({
   };
 
   const handleCancelClick = () => {
-    cancelLesson();
+		setModalMode('confirmCancel')
+		openModal("lessonClick")
     onClose();
   };
 
   const handleRestoreClick = () => {
-    restoreLesson();
+		setModalMode('confirmRestore')
+		openModal("lessonClick")
     onClose();
   };
 
 	const handleDeleteClick = () => {
-		deleteLesson();
+		setModalMode('confirmDel')
+		openModal("lessonClick")
 		onClose();
 	}
 

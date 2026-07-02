@@ -11,9 +11,6 @@ export const useContextMenu = () => {
 	const openModal = useLessonsStore((state) => state.openModal);
 	const setModalMode = useLessonsStore((state) => state.setModalMode);
 	const setCurrentEditLesson = useLessonsStore((state) => state.setCurrentEditLesson);
-	const deleteLesson = useLessonsStore((state) => state.deleteLesson);
-	const cancelLesson = useLessonsStore((state) => state.cancelLesson);
-	const restoreLesson = useLessonsStore((state) => state.restoreLesson);
 	const setCurentLessonDate = useLessonsStore((state) => state.setCurentLessonDate);
 
 	const [contextMenu, setContextMenu] = useState<{
@@ -161,9 +158,6 @@ export const useContextMenu = () => {
 		setCurentLessonDate,
 		openMenu,
 		closeMenu,
-		cancelLesson,
-		restoreLesson,
-		deleteLesson,
 		contextMenu
 	}
 }

@@ -34,7 +34,7 @@ interface LessonsState {
 	currentEditLesson: Lesson | null
 }
 
-type ModalModeTypes = 'create' | 'edit' | 'close';
+export type ModalModeTypes = 'create' | 'edit' | 'confirmDel' | 'confirmCancel' | 'confirmRestore' | 'close';
 export type TypeOfOpeningModal = 'buttonClick' | 'cellClick' | 'lessonClick'
 
 interface LessonsAction {
