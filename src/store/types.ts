@@ -12,6 +12,7 @@ interface WeekRange {
 
 interface WeekState {
 	currentWeekOffset: number,
+	currentDate: string | null
 }
 
 interface WeekAction {

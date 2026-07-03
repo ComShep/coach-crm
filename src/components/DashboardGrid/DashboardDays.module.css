@@ -13,8 +13,12 @@
 	border-right: 2px solid #f5f6f7;
 }
 
-.headerBlock {
+.dayBlock {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+}
+
+.currentDay {
+	color: #83f;
 }

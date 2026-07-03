@@ -10,6 +10,7 @@ const timeSlots = generateTimeSlots();
 
 export const DashboardGrid = () => {
 	const currentWeekOffset = useWeekStore((state) => state.currentWeekOffset);
+	const currentDayDate = useWeekStore((state) => state.currentDate)
   const getWeekDays = useWeekStore((state) => state.getWeekDays);
   const days = useMemo(() => getWeekDays(), [currentWeekOffset, getWeekDays]);
 
@@ -20,7 +21,7 @@ export const DashboardGrid = () => {
 
 	return (
     <>
-      <DashboardDays days={days}/>
+      <DashboardDays days={days} currentDayDate={currentDayDate}/>
       <div className={styles.grid}>
         {timeSlots.map((timeSlot) => {
           return (

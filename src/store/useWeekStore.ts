@@ -7,6 +7,7 @@ export const useWeekStore = create<WeekStore>()(
   devtools(
     (set, get) => ({
       currentWeekOffset: 0,
+			currentDate: null,
 
       nextWeek: () => set(
         (state) => ({
@@ -27,6 +28,7 @@ export const useWeekStore = create<WeekStore>()(
       getWeekDates: () => {
         const { currentWeekOffset } = get();
         const today = new Date();
+				set({currentDate: today.toISOString().slice(0, 10)})
         today.setHours(0, 0, 0, 0);
 
         const currentDay = today.getDay();
