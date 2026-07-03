@@ -10,7 +10,7 @@ type Props = {
 
 export const DashboardDays = ({ days, currentDayDate }: Props) => {
   return (
-    <div className={styles.header}>
+    <div className={styles.gridHeader}>
       <div className={styles.dayBlock}>
         <IconClock />
       </div>

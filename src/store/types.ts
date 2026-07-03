@@ -12,12 +12,14 @@ interface WeekRange {
 
 interface WeekState {
 	currentWeekOffset: number,
-	currentDate: string | null
+	currentDate: string 
+	activeDate: string 
 }
 
 interface WeekAction {
 	nextWeek: () => void,
 	prevWeek: () => void,
+	setActiveDate: (date: string) => void,
 	getWeekDates: () => Date[],
 	getWeekDays: () => WeekDay[],
 	getWeekRangeDates: () => WeekRange

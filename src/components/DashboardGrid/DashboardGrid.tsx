@@ -5,6 +5,7 @@ import { generateTimeSlots } from "../../utils/schedule";
 import { useWeekStore } from "../../store";
 import { DashboardDays } from "./DashboardDays";
 import { DashboardCell } from "./DashboardCell";
+import { DashboardDaysMobile } from "./DashboardDaysMobile";
 
 const timeSlots = generateTimeSlots();
 
@@ -22,6 +23,7 @@ export const DashboardGrid = () => {
 	return (
     <>
       <DashboardDays days={days} currentDayDate={currentDayDate}/>
+			<DashboardDaysMobile days={days} currentDayDate={currentDayDate}/>
       <div className={styles.grid}>
         {timeSlots.map((timeSlot) => {
           return (

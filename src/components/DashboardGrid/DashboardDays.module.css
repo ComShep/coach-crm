@@ -1,4 +1,4 @@
-.header {
+.gridHeader {
 	height: 50px;
 	border-top: 2px solid #f5f6f7;
 	display: grid;
@@ -9,7 +9,11 @@
 	font-weight: 700;
 }
 
-.header > :not(:last-child) {
+.gridHeaderMobile {
+	display: none;
+}
+
+.gridHeader > :not(:last-child) {
 	border-right: 2px solid #f5f6f7;
 }
 
@@ -21,4 +25,41 @@
 
 .currentDay {
 	color: #83f;
+}
+
+@media(max-width:1024px) {
+	.gridHeader {
+		display: none;
+	}
+
+	.gridHeaderMobile {
+		padding: 8px 16px;
+		border-top: 2px solid #f5f6f7;
+		color: #6b7a99;
+		display: flex;
+		gap: 5px
+	}
+
+	.mobileDayBlock {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		padding: 6px 10px;
+		border: 1px solid #f5f6f7;
+		border-radius: 10px;
+	}
+
+	.activeDay{
+		background: rgba(136, 51, 255, 0.05);
+		border: 2px solid #83f;
+	}
+	.mobileDayName {
+		font-size: 10px;
+		font-weight: 600;
+	}
+	.mobileDayDate {
+		font-size: 16px;
+		font-weight: 600;
+	}
 }
