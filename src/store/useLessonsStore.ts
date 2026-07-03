@@ -76,13 +76,13 @@ export const demoLessons: Lesson[] = [
   },
 ];
 
+const STORAGE_KEY = 'lessonsData';
+
 export const useLessonsStore = create<LessonsStore>()(
   devtools((set, get) => ({
     lessons: demoLessons,
 		modalShow: false,
 		modalMode: 'close',
-		// confirmModalShow: false,
-		// confirmModalMode: 'close',
 		currentCellDayOfWeek: 0,
 		currentCellDate: '',
 		currentCellTime: '',
@@ -90,26 +90,49 @@ export const useLessonsStore = create<LessonsStore>()(
 		typeOfOpeningModal: 'buttonClick',
 		currentEditLesson: null,
 
+		loadLessons: () => {
+			try {
+				const lessonsData = localStorage.getItem(STORAGE_KEY);
+				if(!lessonsData) return;
+
+				set({lessons: JSON.parse(lessonsData)})
+			} catch (error) {
+				console.log(error)
+			}
+		},
+
+		saveLessons: () => {
+			const { lessons } = get();
+			try {
+				localStorage.setItem(STORAGE_KEY, JSON.stringify(lessons))
+			} catch (error) {
+				console.log(error)
+			}
+		},
+
 		openModal: (typeOfOpening: TypeOfOpeningModal) => set({typeOfOpeningModal: typeOfOpening, modalShow: true}),
 		closeModal: () => set({modalShow: false}),
 		setModalMode: (mode) => set({modalMode: mode}),
 		setCurrentCellTimeData: (dayOfWeek: number, date: string, time: string) =>  set({currentCellDayOfWeek: dayOfWeek, currentCellDate: date, currentCellTime: time}),
 		setCurentLessonDate: (date: string) => set({currentLessonDate: date}),
 		setCurrentEditLesson: (lesson: Lesson) => set({currentEditLesson: lesson}),
+
 		addLesson: (newLessonData) =>  {
-			const { lessons } = get();
+			const { lessons, saveLessons } = get();
 			const newLesson = { ...newLessonData, id: uuidv4()}
   		set({ lessons: lessons ? [...lessons, newLesson] : [newLesson] });
+			saveLessons();
 		},
 		editLesson: (editLessonData) =>  {
-			const { lessons, currentEditLesson } = get();
+			const { lessons, currentEditLesson, saveLessons } = get();
 			if (!lessons || !currentEditLesson) return;
 
 			const changedLessons = lessons.map(lesson => lesson.id === currentEditLesson.id ? {...editLessonData, id: lesson.id} : lesson)
   		set({ lessons: changedLessons });
+			saveLessons();
 		},
 		cancelLesson: () => {
-			const { lessons, currentEditLesson, currentLessonDate} = get();
+			const { lessons, currentEditLesson, currentLessonDate, saveLessons } = get();
 			if (!lessons || !currentEditLesson || !currentLessonDate) return;
 
 			const changedLessons = lessons.map(lesson => {
@@ -123,9 +146,10 @@ export const useLessonsStore = create<LessonsStore>()(
 				}
 			})
 			set({lessons: changedLessons});
+			saveLessons();
 		},
 		restoreLesson: () => {
-			const { lessons, currentEditLesson, currentLessonDate } = get();
+			const { lessons, currentEditLesson, currentLessonDate, saveLessons } = get();
 			if (!lessons || !currentEditLesson || !currentLessonDate ) return;
 
 			const changedLessons = lessons.map(lesson => {
@@ -139,15 +163,17 @@ export const useLessonsStore = create<LessonsStore>()(
 				}
 			});
 
-			set({lessons: changedLessons})
+			set({lessons: changedLessons});
+			saveLessons();
 		},
 		deleteLesson: () => {
-			const { lessons, currentEditLesson  } = get();
+			const { lessons, currentEditLesson, saveLessons  } = get();
 			if ( !lessons || !currentEditLesson ) return;
 
 			const changedLessons = lessons.filter(lesson => lesson.id !== currentEditLesson.id);
 			
-			set({lessons: changedLessons})
+			set({lessons: changedLessons});
+			saveLessons();
 		}
   }), 
   { name: "LessonStore" }

@@ -38,6 +38,8 @@ export type ModalModeTypes = 'create' | 'edit' | 'confirmDel' | 'confirmCancel' 
 export type TypeOfOpeningModal = 'buttonClick' | 'cellClick' | 'lessonClick'
 
 interface LessonsAction {
+	loadLessons: () => void,
+	saveLessons: () => void,
 	openModal: (typeOfOpening: TypeOfOpeningModal) => void,
 	closeModal: () => void,
 	setModalMode: (mode: ModalModeTypes) => void,

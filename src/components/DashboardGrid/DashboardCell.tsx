@@ -5,6 +5,7 @@ import { LessonCard } from "./LessonCard";
 import type { Lesson } from "../../store/types";
 import { ContextMenu } from "../ContextMenu/ContextMenu";
 import { useContextMenu } from "../../hooks/ContextMenu/useContextMenu";
+import { useEffect } from "react";
 
 type Props = {
   dayIndex: number;
@@ -14,6 +15,7 @@ type Props = {
 
 export const DashboardCell = ({ dayIndex, timeSlot, date }: Props) => {
 	const lessons = useLessonsStore((state) => state.lessons);
+	const loadLessons = useLessonsStore((state) => state.loadLessons);
 	const setCurrentCellTimeData = useLessonsStore((state) => state.setCurrentCellTimeData);
 
 	const { 		
@@ -27,6 +29,10 @@ export const DashboardCell = ({ dayIndex, timeSlot, date }: Props) => {
 		closeMenu,
 		contextMenu,
 	} = useContextMenu();
+
+	useEffect(() => {
+		loadLessons();
+	}, [])
 
   if (!lessons)
     return (
