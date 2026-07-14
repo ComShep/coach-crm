@@ -23,7 +23,6 @@ export const DashboardGrid = () => {
 
   return (
     <>
-      {console.log(days)}
       <DashboardDays days={days} currentDayDate={currentDayDate} />
       <DashboardDaysMobile days={days} currentDayDate={currentDayDate} />
       <div className={styles.grid}>

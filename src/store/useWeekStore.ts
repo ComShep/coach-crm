@@ -46,6 +46,10 @@ export const useWeekStore = create<WeekStore>()(
           weekDates.push(date);
         }
 
+        const dayIndex = currentDay === 0 ? 6 : currentDay - 1;
+        const activeDate = weekDates[dayIndex].toISOString().slice(0, 10);
+        set({activeDate: activeDate})
+
         return weekDates;
       },
 
