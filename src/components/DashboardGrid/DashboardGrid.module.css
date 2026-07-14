@@ -3,6 +3,10 @@
 	grid-template-columns: 65px repeat(7, 1fr)
 }
 
+.gridMobile {
+  display: none;
+}
+
 .timeLabel  {
 	display: flex;
 	justify-content: center;
@@ -27,4 +31,15 @@
 
 .cell:not(:last-child){
 	border-right: 2px solid #f5f6f7;
+}
+
+@media(max-width: 1024px) {
+  .grid {
+    display: none;
+  }
+
+  .gridMobile {
+    display: grid;
+    grid-template-columns: 65px repeat(1, 1fr)
+  }
 }
