@@ -15,7 +15,7 @@ export const DashboardGrid = () => {
   const activeDate = useWeekStore((state) => state.activeDate);
   const getWeekDays = useWeekStore((state) => state.getWeekDays);
   const days = useMemo(() => getWeekDays(), [currentWeekOffset, getWeekDays]);
-
+  console.log(1)
   const timeCell = clsx({
     [styles.timeLabel]: true,
     [styles.cell]: true,
